@@ -1,0 +1,29 @@
+{
+  "users": [
+    {
+      "email": "cornelio@hotmail.it",
+      "password": "$2a$10$CxlAX8n7J3cw3h5nl22aVuFUGZidaAea2k6cFS8sC15FV.yQweGf2",
+      "name": "cornelio",
+      "id": 1
+    },
+    {
+      "email": "suppa@hotmail.it",
+      "password": "$2a$10$9FJlRa6/4JO/uulTlmDDTOIUCjRc.c.QvVap/PUPtApSCZ9VlwnSu",
+      "name": "suppaman",
+      "id": 2
+    },
+    {
+      "email": "callas@hotmail.it",
+      "password": "$2a$10$uBPi19RN5Tf7wXdHOrtXw.e0B4rlk.nQSnh1RDO/csuNmcjlYfHNK",
+      "name": "maria",
+      "id": 3
+    },
+    {
+      "email": "led@hotmail.it",
+      "password": "$2a$10$H19VqklumLT4cDj1iyt8zeyBjXM7dSQY85x25TfaKnRx1H4pVeasa",
+      "name": "ledzeppelin",
+      "id": 4
+    }
+  ],
+  "items": []
+}
