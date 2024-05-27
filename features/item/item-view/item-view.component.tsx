@@ -8,6 +8,7 @@ import {
 } from 'react-native-document-picker';
 import PagerView from 'react-native-pager-view';
 import {itemViewStyle} from './item-view.style';
+import { Icon } from '@rneui/base';
 
 type pagerViewRef = React.ElementRef<typeof PagerView>;
 
@@ -15,6 +16,7 @@ export const ItemView = () => {
   const [fileResponse, setFileResponse] = useState<DocumentPickerResponse[]>(
     [],
   );
+  const [message, setMessage] = useState<string>('');
 
   const handleFileSelection = useCallback(async () => {
     try {
@@ -22,8 +24,13 @@ export const ItemView = () => {
         type: [types.images],
         allowMultiSelection: true,
       });
-
-      setFileResponse(response);
+      if (response.length > 5) {
+        setMessage('Only 5 images are allowed');
+        return;
+      } else {
+        setFileResponse(response);
+        setMessage('');
+      }
     } catch (error) {
       console.error('error: ', error);
     }
@@ -44,10 +51,9 @@ export const ItemView = () => {
         initialPage={0}
         collapsable={false}
         useNext={true}
-        onPageSelected={(e)=>{
-          setCount(e.nativeEvent.position)
-        }}
-        >
+        onPageSelected={e => {
+          setCount(e.nativeEvent.position);
+        }}>
         {fileResponse.map((file, index) => (
           <View key={index} style={{alignItems: 'center'}}>
             <ImageBackground
@@ -58,25 +64,32 @@ export const ItemView = () => {
           </View>
         ))}
       </PagerView>
+      {message ? <Text>{message}</Text> : null}
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         {fileResponse.length !== 0 ? (
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
             <Pressable
+            style={{marginRight: 20}}
+            android_ripple={{color: 'lightgreen', borderless: true, radius: 25}}
               onPress={() => {
-                setCount(count - 1);
-
+                if (count == 0) {
+                  return;
+                } else setCount(count - 1);
               }}>
-              <Text style={itemViewStyle.arrows}>{'< '}</Text>
+              <Text style={itemViewStyle.arrows}>{'<'}</Text>
             </Pressable>
-            <Text>
+            <Text style={itemViewStyle.imageStatus}>
               {count + 1} / {fileResponse.length.toString()}
             </Text>
             <Pressable
+            style={{marginLeft: 20}}
+            android_ripple={{color: 'lightgreen', borderless: true, radius: 25}}
               onPress={() => {
-                setCount(count + 1);
-
+                if (count == fileResponse.length - 1) {
+                  return;
+                } else setCount(count + 1);
               }}>
-              <Text style={itemViewStyle.arrows}>{' >'}</Text>
+              <Text style={itemViewStyle.arrows}>{'>'}</Text>
             </Pressable>
           </View>
         ) : null}
@@ -84,6 +97,7 @@ export const ItemView = () => {
 
       <View style={[style.mainButtonContainer, {flex: 1}]}>
         <Pressable
+        android_ripple={{color: 'lightgreen'}}
           style={[style.pressable, {marginTop: 10}]}
           onPress={() => handleFileSelection()}>
           <Text style={style.lightText}>Select {'\u{1F5BC}'}</Text>
