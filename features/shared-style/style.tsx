@@ -10,7 +10,7 @@ export const style = StyleSheet.create({
   },
   pressable: {
     borderWidth: 1,
-    borderRadius: 5,
+   // borderRadius: 5,
     padding: 10,
     backgroundColor: 'dodgerblue',
   },

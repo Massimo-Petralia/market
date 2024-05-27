@@ -14,10 +14,10 @@ export const Market = () => {
         tabBarIcon: ({focused, color, size}) => {
           let iconName: string='';
           if (route.name === 'User') {
-            iconName =  'person'
+            iconName = focused ? 'person' : 'person-outline'
               ;
           }else if (route.name === 'add product') {
-            iconName = 'add';
+            iconName = focused ? 'add-circle': 'add';
           }
           return <MaterialIcon name={iconName} size={size} color={color} />
         },

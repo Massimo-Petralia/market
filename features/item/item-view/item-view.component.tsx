@@ -10,6 +10,7 @@ import PagerView from 'react-native-pager-view';
 import {itemViewStyle} from './item-view.style';
 import {Input} from '@rneui/themed';
 import {Product} from '../../models';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 type pagerViewRef = React.ElementRef<typeof PagerView>;
 
@@ -105,7 +106,7 @@ export const ItemView = ({
                   return;
                 } else setCount(count - 1);
               }}>
-              <Text style={itemViewStyle.arrows}>{'<'}</Text>
+              <MaterialIcons style={{fontSize: 50}} name='chevron-left' />
             </Pressable>
             <Text style={itemViewStyle.imageStatus}>
               {count + 1} / {fileResponse.length.toString()}
@@ -122,7 +123,7 @@ export const ItemView = ({
                   return;
                 } else setCount(count + 1);
               }}>
-              <Text style={itemViewStyle.arrows}>{'>'}</Text>
+             <MaterialIcons style={{fontSize: 50}} name='chevron-right' />
             </Pressable>
           </View>
         ) : null}
