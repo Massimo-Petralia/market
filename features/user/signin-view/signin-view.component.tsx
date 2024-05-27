@@ -33,7 +33,7 @@ export const SigninView = ({
             style={style.pressable}
             android_ripple={{color: 'lightgreen'}}
             onPress={() => onSubmit(formData)}>
-            <Text style={{fontWeight: 'bold'}}>SIGNIN</Text>
+            <Text style={style.lightText}>SIGNIN</Text>
           </Pressable>
           <Text style={{margin: 10}}>If you are new</Text>
           <Pressable onPress={() => navigation.navigate('Signup')}>

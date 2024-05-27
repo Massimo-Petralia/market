@@ -34,7 +34,7 @@ export const SignupView = ({navigation}:  NativeStackScreenProps<RootStackParamL
             style={style.pressable}
             android_ripple={{color: 'lightgreen'}}
             onPress={() => onSubmit(formData)}>
-            <Text style={{fontWeight: 'bold'}}>SIGNUP</Text>
+            <Text style={style.lightText}>SIGNUP</Text>
           </Pressable>
           <Text style={{margin: 10}}>If you have already signed up</Text>
           <Pressable

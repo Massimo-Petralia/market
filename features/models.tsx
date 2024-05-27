@@ -19,3 +19,11 @@ export interface UserAuth {
   accessToken: string;
   user: User 
 }
+
+export type Product = {
+  id?: number;
+  userId?: number;
+  name: string;
+  description: string;
+  price: string
+}|undefined
