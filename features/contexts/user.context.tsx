@@ -1,5 +1,6 @@
 import {createContext} from 'react';
 import {User} from '../models';
+import { useState } from 'react';
 
 type UserContext = {
   user: User | undefined;
@@ -16,3 +17,4 @@ export const userContext = createContext<UserContext>({
   isSignedUp: false,
   isSignedIn: false,
 });
+

@@ -23,6 +23,12 @@
       "password": "$2a$10$H19VqklumLT4cDj1iyt8zeyBjXM7dSQY85x25TfaKnRx1H4pVeasa",
       "name": "ledzeppelin",
       "id": 4
+    },
+    {
+      "email": "bat@hotmail.it",
+      "password": "$2a$10$0Bi3q9ogE3p5RDt8BxALLOf/oUBbIv.84j3dMpuK9PVijuRJo4pDe",
+      "name": "batman",
+      "id": 5
     }
   ],
   "items": []
