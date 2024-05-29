@@ -11,6 +11,7 @@ import {itemViewStyle} from './item-view.style';
 import {Input} from '@rneui/themed';
 import {Product} from '../../models';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import RNFS from 'react-native-fs'
 
 type pagerViewRef = React.ElementRef<typeof PagerView>;
 
@@ -19,7 +20,7 @@ export const ItemView = ({
 }: {
   onCreateItem: (product: Product) => void;
 }) => {
-  const [fileResponse, setFileResponse] = useState<DocumentPickerResponse[]>(
+  const [fileResponse, setFileResponse] = useState<string[]>(
     [],
   );
   const [message, setMessage] = useState<string>('');
@@ -38,7 +39,13 @@ export const ItemView = ({
         setMessage('Only 5 images are allowed');
         return;
       } else {
-        setFileResponse(response);
+        const files: string[] =[] 
+        for(let file of response) {
+          const base64String = await RNFS.readFile(file.uri,'base64')
+          files.push(`data:image/${file.type};base64,${base64String}`)
+          //console.log('files:  ', base64String)
+      }
+        setFileResponse(files);
         setMessage('');
       }
     } catch (error) {
@@ -83,7 +90,7 @@ export const ItemView = ({
           <View key={index} style={{alignItems: 'center'}}>
             <ImageBackground
               style={{width: 350, height: 350, backgroundColor: 'dodgerblue'}}
-              source={{uri: file.uri}}
+              source={{uri: fileResponse[index]}}
               resizeMode="contain"
             />
           </View>
