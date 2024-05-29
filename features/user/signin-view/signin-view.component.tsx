@@ -35,10 +35,14 @@ export const SigninView = ({
             onPress={() => onSubmit(formData)}>
             <Text style={style.lightText}>SIGNIN</Text>
           </Pressable>
+        </View>
+        <View style={{alignItems: 'center'}}>
           <Text style={{margin: 10}}>If you are new</Text>
           <Pressable onPress={() => navigation.navigate('Signup')}>
             <Text style={style.bluePalette}>Go to Signup</Text>
           </Pressable>
+        </View>
+        <View style={{alignItems: 'center'}}>
           {contextData.userData?.user && contextData.isSignedIn ? (
             <Text style={style.notifications}>
               Hello{' '}

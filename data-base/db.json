@@ -29,6 +29,12 @@
       "password": "$2a$10$0Bi3q9ogE3p5RDt8BxALLOf/oUBbIv.84j3dMpuK9PVijuRJo4pDe",
       "name": "batman",
       "id": 5
+    },
+    {
+      "email": "angular@hotmail.it",
+      "password": "$2a$10$wXjwUa5GMFMu.cP/x1GYcudZwLLzK8nOblyhQ/DI/D/eD2RszDLgS",
+      "name": "Angular",
+      "id": 6
     }
   ],
   "items": []

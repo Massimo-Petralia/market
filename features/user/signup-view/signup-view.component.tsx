@@ -1,14 +1,16 @@
-import { useContext } from 'react';
+import {useContext} from 'react';
 import {View, Text, Pressable} from 'react-native';
 import {Input} from '@rneui/themed';
 import {User} from '../../models';
 import {style} from '../../shared-style/style';
-import { userContext } from '../../contexts/user.context';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import type { RootStackParamList } from '../user-page/user-page.component';
+import {userContext} from '../../contexts/user.context';
+import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import type {RootStackParamList} from '../user-page/user-page.component';
 
-export const SignupView = ({navigation}:  NativeStackScreenProps<RootStackParamList, 'Signup'>) => {
-  const contextData = useContext(userContext)
+export const SignupView = ({
+  navigation,
+}: NativeStackScreenProps<RootStackParamList, 'Signup'>) => {
+  const contextData = useContext(userContext);
   const formData: User | undefined = {
     name: '',
     email: '',
@@ -36,16 +38,20 @@ export const SignupView = ({navigation}:  NativeStackScreenProps<RootStackParamL
             onPress={() => onSubmit(formData)}>
             <Text style={style.lightText}>SIGNUP</Text>
           </Pressable>
+        </View>
+        <View style={{alignItems: 'center'}}>
           <Text style={{margin: 10}}>If you have already signed up</Text>
-          <Pressable
-          onPress={()=> navigation.navigate('Signin')}
-          >
+          <Pressable onPress={() => navigation.navigate('Signin')}>
             <Text style={style.bluePalette}>Go to Signin</Text>
           </Pressable>
+        </View>
+        <View style={{alignItems: 'center'}}>
           {contextData.userData?.user && contextData.isSignedUp ? (
             <Text style={style.notifications}>
               Wellcome{' '}
-              {contextData.userData.user.name.charAt(0).toLocaleUpperCase() + contextData.userData.user.name.slice(1)} !
+              {contextData.userData.user.name.charAt(0).toLocaleUpperCase() +
+                contextData.userData.user.name.slice(1)}{' '}
+              !
             </Text>
           ) : null}
         </View>

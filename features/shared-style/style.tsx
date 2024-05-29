@@ -6,13 +6,15 @@ export const style = StyleSheet.create({
     flex: 1,
   },
   mainButtonContainer: {
-    alignItems: 'center',
+    alignItems: 'stretch',
+    
   },
   pressable: {
     borderWidth: 1,
-   // borderRadius: 5,
     padding: 10,
     backgroundColor: 'dodgerblue',
+    alignItems: 'center',
+    marginHorizontal: 20
   },
   bluePalette: {
     color: 'dodgerblue',
