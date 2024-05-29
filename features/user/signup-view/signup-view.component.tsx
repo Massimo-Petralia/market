@@ -42,10 +42,10 @@ export const SignupView = ({navigation}:  NativeStackScreenProps<RootStackParamL
           >
             <Text style={style.bluePalette}>Go to Signin</Text>
           </Pressable>
-          {contextData.user && contextData.isSignedUp ? (
+          {contextData.userData?.user && contextData.isSignedUp ? (
             <Text style={style.notifications}>
               Wellcome{' '}
-              {contextData.user.name.charAt(0).toLocaleUpperCase() + contextData.user.name.slice(1)} !
+              {contextData.userData.user.name.charAt(0).toLocaleUpperCase() + contextData.userData.user.name.slice(1)} !
             </Text>
           ) : null}
         </View>

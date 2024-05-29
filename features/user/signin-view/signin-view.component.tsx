@@ -39,11 +39,11 @@ export const SigninView = ({
           <Pressable onPress={() => navigation.navigate('Signup')}>
             <Text style={style.bluePalette}>Go to Signup</Text>
           </Pressable>
-          {contextData.user && contextData.isSignedIn ? (
+          {contextData.userData?.user && contextData.isSignedIn ? (
             <Text style={style.notifications}>
               Hello{' '}
-              {contextData.user.name.charAt(0).toLocaleUpperCase() +
-                contextData.user.name.slice(1)}{' '}
+              {contextData.userData.user.name.charAt(0).toLocaleUpperCase() +
+                contextData.userData.user.name.slice(1)}{' '}
               !
             </Text>
           ) : null}
