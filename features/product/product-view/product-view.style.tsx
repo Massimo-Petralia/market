@@ -1,6 +1,6 @@
 import {Pressable, StyleSheet} from 'react-native';
 
-export const itemViewStyle = StyleSheet.create({
+export const productViewStyle = StyleSheet.create({
   dotsBar: {
     borderRadius: 50,
     width: 10,

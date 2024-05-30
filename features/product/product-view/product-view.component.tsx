@@ -7,7 +7,7 @@ import {
   types,
 } from 'react-native-document-picker';
 import PagerView from 'react-native-pager-view';
-import {itemViewStyle} from './item-view.style';
+import {productViewStyle} from './product-view.style';
 import {Input} from '@rneui/themed';
 import {Product} from '../../models';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
@@ -15,7 +15,7 @@ import RNFS from 'react-native-fs'
 
 type pagerViewRef = React.ElementRef<typeof PagerView>;
 
-export const ItemView = ({
+export const ProductView = ({
   onCreateItem,
 }: {
   onCreateItem: (product: Product) => void;
@@ -115,7 +115,7 @@ export const ItemView = ({
               }}>
               <MaterialIcons style={{fontSize: 50}} name='chevron-left' />
             </Pressable>
-            <Text style={itemViewStyle.imageStatus}>
+            <Text style={productViewStyle.imageStatus}>
               {count + 1} / {fileResponse.length.toString()}
             </Text>
             <Pressable

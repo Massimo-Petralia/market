@@ -1,5 +1,5 @@
 import {Text, View} from 'react-native';
-import {ItemPage} from './features/item/item-page/item-page.component';
+import {ProductPage} from './features/product/product-page/product-page.component';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
@@ -23,7 +23,7 @@ export const Market = () => {
         },
       })}>
       <Tab.Screen name="User" component={UserPage} />
-      <Tab.Screen name="add product" component={ItemPage} />
+      <Tab.Screen name="add product" component={ProductPage} />
     </Tab.Navigator>
   );
 };
