@@ -20,10 +20,11 @@ export interface UserAuth {
   user: User 
 }
 
-export type Product = {
+export interface Product  {
   id?: number;
   userId?: number;
   name: string;
   description: string;
-  price: string
-}|undefined
+  price: string;
+  images: string[]
+}

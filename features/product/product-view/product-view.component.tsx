@@ -23,6 +23,13 @@ export const ProductView = ({
   const [fileResponse, setFileResponse] = useState<string[]>(
     [],
   );
+const [formProduct, setFormProduct] = useState<Product|undefined>({
+  name: '',
+  description: '',
+  price: '',
+  images: []
+})
+
   const [message, setMessage] = useState<string>('');
 
   const onSubmit = (product: Product) => {
@@ -46,6 +53,7 @@ export const ProductView = ({
           //console.log('files:  ', base64String)
       }
         setFileResponse(files);
+       // productForm.images = fileResponse
         setMessage('');
       }
     } catch (error) {
@@ -60,11 +68,14 @@ export const ProductView = ({
   useEffect(() => {
     pagerView.current?.setPage(count);
   }, [count]);
-  const productForm: Product | undefined = {
+
+  const productForm: Product = {
     name: '',
     description: '',
     price: '',
+    images: [] 
   };
+
   return (
     <ScrollView style={{flex: 1}}>
       <View>
@@ -146,7 +157,7 @@ export const ProductView = ({
         <Pressable
           android_ripple={{color: 'lightgreen'}}
           style={[style.pressable, {marginTop: 10}]}
-          onPress={() => onSubmit(productForm)}>
+          onPress={() => {onSubmit(productForm); console.log('product from view', productForm)}}>
           <Text style={style.lightText}>SUBMIT</Text>
         </Pressable>
       </View>
