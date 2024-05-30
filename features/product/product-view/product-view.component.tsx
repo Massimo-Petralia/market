@@ -20,7 +20,7 @@ export const ProductView = ({
 }: {
   onCreateItem: (product: Product) => void;
 }) => {
-  const [fileResponse, setFileResponse] = useState<string[]>([]);
+  //const [fileResponse, setFileResponse] = useState<string[]>([]);
   const [formProduct, setFormProduct] = useState<Product>({
     name: '',
     description: '',
@@ -61,7 +61,7 @@ export const ProductView = ({
           files.push(`data:image/${file.type};base64,${base64String}`);
           //console.log('files:  ', base64String)
         }
-        setFileResponse(files);
+       handleImagesChanges(files);
         // productForm.images = fileResponse
         setMessage('');
       }
@@ -78,24 +78,24 @@ export const ProductView = ({
     pagerView.current?.setPage(count);
   }, [count]);
 
-  const productForm: Product = {
-    name: '',
-    description: '',
-    price: '',
-    images: [],
-  };
+  // const productForm: Product = {
+  //   name: '',
+  //   description: '',
+  //   price: '',
+  //   images: [],
+  // };
 
   return (
     <ScrollView style={{flex: 1}}>
       <View>
-        <Input label="name" onChangeText={name => (productForm.name = name)} />
+        <Input label="name" onChangeText={name => (handleNameChanges(name))} />
         <Input
           label="Description"
-          onChangeText={description => (productForm.description = description)}
+          onChangeText={description => (handleDescriptionChanges(description))}
         />
         <Input
           label="Price"
-          onChangeText={price => (productForm.price = price)}
+          onChangeText={price => (handlePriceChanges(price))}
         />
       </View>
       <PagerView
@@ -106,11 +106,11 @@ export const ProductView = ({
         onPageSelected={e => {
           setCount(e.nativeEvent.position);
         }}>
-        {fileResponse.map((file, index) => (
+        {formProduct.images.map((file, index) => (
           <View key={index} style={{alignItems: 'center'}}>
             <ImageBackground
               style={{width: 350, height: 350, backgroundColor: 'dodgerblue'}}
-              source={{uri: fileResponse[index]}}
+              source={{uri: formProduct.images[index]}}
               resizeMode="contain"
             />
           </View>
@@ -118,7 +118,7 @@ export const ProductView = ({
       </PagerView>
       {message ? <Text>{message}</Text> : null}
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-        {fileResponse.length !== 0 ? (
+        {formProduct.images.length !== 0 ? (
           <View
             style={{flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
             <Pressable
@@ -136,7 +136,7 @@ export const ProductView = ({
               <MaterialIcons style={{fontSize: 50}} name="chevron-left" />
             </Pressable>
             <Text style={productViewStyle.imageStatus}>
-              {count + 1} / {fileResponse.length.toString()}
+              {count + 1} / {formProduct.images.length.toString()}
             </Text>
             <Pressable
               style={{marginLeft: 20}}
@@ -146,7 +146,7 @@ export const ProductView = ({
                 radius: 25,
               }}
               onPress={() => {
-                if (count == fileResponse.length - 1) {
+                if (count == formProduct.images.length - 1) {
                   return;
                 } else setCount(count + 1);
               }}>
@@ -167,8 +167,8 @@ export const ProductView = ({
           android_ripple={{color: 'lightgreen'}}
           style={[style.pressable, {marginTop: 10}]}
           onPress={() => {
-            onSubmit(productForm);
-            console.log('product from view', productForm);
+            onSubmit(formProduct);
+            console.log('product from view', formProduct);
           }}>
           <Text style={style.lightText}>SUBMIT</Text>
         </Pressable>
