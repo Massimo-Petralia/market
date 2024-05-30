@@ -1,5 +1,5 @@
 export type User = {
-  id?: number | string;
+  id?: number;
   name: string;
   email: string;
   password: string;
@@ -23,6 +23,7 @@ export interface UserAuth {
 export interface Product  {
   id?: number;
   userId?: number;
+  accessToken?: string,
   name: string;
   description: string;
   price: string;

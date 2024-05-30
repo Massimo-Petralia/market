@@ -168,7 +168,6 @@ export const ProductView = ({
           style={[style.pressable, {marginTop: 10}]}
           onPress={() => {
             onSubmit(formProduct);
-            console.log('product from view', formProduct);
           }}>
           <Text style={style.lightText}>SUBMIT</Text>
         </Pressable>

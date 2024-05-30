@@ -37,16 +37,5 @@
       "id": 6
     }
   ],
-  "items": [
-    {
-      "userId": 2,
-      "items": [
-        "aaa",
-        "bbb",
-        "ccc",
-        "ddd"
-      ],
-      "id": 1
-    }
-  ]
+  "products": []
 }
