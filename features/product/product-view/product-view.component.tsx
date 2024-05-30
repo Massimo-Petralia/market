@@ -34,6 +34,11 @@ export const ProductView = ({
     });
   };
 
+  const handleNameChanges = (name: string)=> updateFormProduct('name', name);
+  const handleDescriptionChanges = (description: string) => updateFormProduct('description', description);
+  const handlePriceChanges = (price: string) => updateFormProduct('price', price);
+  const handleImagesChanges = (images: string[]) => updateFormProduct('images', images) 
+
   const [message, setMessage] = useState<string>('');
 
   const onSubmit = (product: Product) => {
