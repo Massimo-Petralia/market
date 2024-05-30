@@ -10,8 +10,8 @@ import PagerView from 'react-native-pager-view';
 import {productViewStyle} from './product-view.style';
 import {Input} from '@rneui/themed';
 import {Product} from '../../models';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import RNFS from 'react-native-fs'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import RNFS from 'react-native-fs';
 
 type pagerViewRef = React.ElementRef<typeof PagerView>;
 
@@ -20,15 +20,19 @@ export const ProductView = ({
 }: {
   onCreateItem: (product: Product) => void;
 }) => {
-  const [fileResponse, setFileResponse] = useState<string[]>(
-    [],
-  );
-const [formProduct, setFormProduct] = useState<Product|undefined>({
-  name: '',
-  description: '',
-  price: '',
-  images: []
-})
+  const [fileResponse, setFileResponse] = useState<string[]>([]);
+  const [formProduct, setFormProduct] = useState<Product>({
+    name: '',
+    description: '',
+    price: '',
+    images: [],
+  });
+
+  const updateFormProduct = (key: keyof Product, value: string | string[]) => {
+    setFormProduct((previousFormProduct) => {
+      return {...previousFormProduct, [key]: value};
+    });
+  };
 
   const [message, setMessage] = useState<string>('');
 
@@ -46,14 +50,14 @@ const [formProduct, setFormProduct] = useState<Product|undefined>({
         setMessage('Only 5 images are allowed');
         return;
       } else {
-        const files: string[] =[] 
-        for(let file of response) {
-          const base64String = await RNFS.readFile(file.uri,'base64')
-          files.push(`data:image/${file.type};base64,${base64String}`)
+        const files: string[] = [];
+        for (let file of response) {
+          const base64String = await RNFS.readFile(file.uri, 'base64');
+          files.push(`data:image/${file.type};base64,${base64String}`);
           //console.log('files:  ', base64String)
-      }
+        }
         setFileResponse(files);
-       // productForm.images = fileResponse
+        // productForm.images = fileResponse
         setMessage('');
       }
     } catch (error) {
@@ -73,7 +77,7 @@ const [formProduct, setFormProduct] = useState<Product|undefined>({
     name: '',
     description: '',
     price: '',
-    images: [] 
+    images: [],
   };
 
   return (
@@ -124,7 +128,7 @@ const [formProduct, setFormProduct] = useState<Product|undefined>({
                   return;
                 } else setCount(count - 1);
               }}>
-              <MaterialIcons style={{fontSize: 50}} name='chevron-left' />
+              <MaterialIcons style={{fontSize: 50}} name="chevron-left" />
             </Pressable>
             <Text style={productViewStyle.imageStatus}>
               {count + 1} / {fileResponse.length.toString()}
@@ -141,7 +145,7 @@ const [formProduct, setFormProduct] = useState<Product|undefined>({
                   return;
                 } else setCount(count + 1);
               }}>
-             <MaterialIcons style={{fontSize: 50}} name='chevron-right' />
+              <MaterialIcons style={{fontSize: 50}} name="chevron-right" />
             </Pressable>
           </View>
         ) : null}
@@ -157,7 +161,10 @@ const [formProduct, setFormProduct] = useState<Product|undefined>({
         <Pressable
           android_ripple={{color: 'lightgreen'}}
           style={[style.pressable, {marginTop: 10}]}
-          onPress={() => {onSubmit(productForm); console.log('product from view', productForm)}}>
+          onPress={() => {
+            onSubmit(productForm);
+            console.log('product from view', productForm);
+          }}>
           <Text style={style.lightText}>SUBMIT</Text>
         </Pressable>
       </View>
