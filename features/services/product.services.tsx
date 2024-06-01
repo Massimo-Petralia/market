@@ -16,4 +16,13 @@ export class ProductServices {
         
         })
     }
+
+    getProductList= () => {
+        return  fetch('http://192.168.1.102:3000/products', {
+            method: 'GET',
+            headers: {
+                'Cache-Control': 'no-cache',
+              }
+        })
+    }
 }
