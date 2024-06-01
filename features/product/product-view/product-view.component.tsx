@@ -7,11 +7,7 @@ import React, {
   useState,
   useContext,
 } from 'react';
-import {
-  DocumentPickerResponse,
-  pick,
-  types,
-} from 'react-native-document-picker';
+import {pick, types} from 'react-native-document-picker';
 import PagerView from 'react-native-pager-view';
 import {productViewStyle} from './product-view.style';
 import {Input, Overlay} from '@rneui/themed';
@@ -32,6 +28,10 @@ export const ProductView = ({
   onResetNotifications: (message: string) => void;
 }) => {
   const contextUserData = useContext(userContext);
+
+  const [count, setCount] = useState(0);
+  const [message, setMessage] = useState<string>('');
+  const [visibleOverlay, setVisibleOverlay] = useState<boolean>(false);
 
   const [formProduct, setFormProduct] = useState<Product>({
     name: '',
@@ -54,26 +54,10 @@ export const ProductView = ({
   const handleImagesChanges = (images: string[]) =>
     updateFormProduct('images', images);
 
-  const [message, setMessage] = useState<string>('');
-  const [visibleOverlay, setVisibleOverlay] = useState<boolean>(false);
-
   const toggleOverlay = () => {
     setVisibleOverlay(!visibleOverlay);
   };
 
-  const onSubmit = (product: Product) => {
-    if (!contextUserData.userData.accessToken) {
-      setVisibleOverlay(true);
-      setMessage('For add product you must be signed in')
-      return;
-    } else if (formProduct.images.length === 0){
-      setVisibleOverlay(!visibleOverlay);
-      setMessage('you must select at least one image')
-    } else if(formProduct.images.length > 5) {
-      setVisibleOverlay(!visibleOverlay);
-      setMessage('number of images allowed 5')
-    }else onCreateItem(product);
-  };
   const resetNotifications = (value: string) => {
     onResetNotifications(value);
   };
@@ -90,15 +74,26 @@ export const ProductView = ({
         files.push(`data:image/${file.type};base64,${base64String}`);
       }
       handleImagesChanges(files);
-      //setMessage('');
     } catch (error) {
       console.error('error: ', error);
     }
   }, []);
 
-  const [count, setCount] = useState(0);
-
   const pagerView = useRef<pagerViewRef>(null);
+
+  const onSubmit = (product: Product) => {
+    if (!contextUserData.userData.accessToken) {
+      setVisibleOverlay(true);
+      setMessage('For add product you must be signed in');
+      return;
+    } else if (formProduct.images.length === 0) {
+      setVisibleOverlay(!visibleOverlay);
+      setMessage('you must select at least one image');
+    } else if (formProduct.images.length > 5) {
+      setVisibleOverlay(!visibleOverlay);
+      setMessage('number of images allowed 5');
+    } else onCreateItem(product);
+  };
 
   useEffect(() => {
     pagerView.current?.setPage(count);
@@ -135,7 +130,6 @@ export const ProductView = ({
           </View>
         ))}
       </PagerView>
-      {/* {message ? <Text>{message}</Text> : null} */}
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         {formProduct.images.length !== 0 ? (
           <View
