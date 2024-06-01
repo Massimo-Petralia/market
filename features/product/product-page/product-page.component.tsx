@@ -1,24 +1,46 @@
-import {useContext} from 'react';
+import {useContext, useState} from 'react';
 import {Pressable, Text, View} from 'react-native';
 import {ProductView} from '../product-view/product-view.component';
 import {Product} from '../../models';
 import {userContext} from '../../contexts/user.context';
 import {ProductServices} from '../../services/product.services';
 const productService = new ProductServices();
+
 export const ProductPage = () => {
   const contextUserData = useContext(userContext);
+  const [notifications, setNotifications] = useState({message: ''});
+  const handleNotifications = (message: string) => {
+    setNotifications(notificationsState => ({
+      ...notificationsState,
+      message: message,
+    }));
+  };
   const onCreateItem = (product: Product) => {
-    productService.createProduct({
-      ...product,
-      accessToken: contextUserData.userData?.accessToken,
-      userId: contextUserData.userData?.user?.id,
-    });
+    productService
+      .createProduct(
+        {
+          ...product,
+          userId: contextUserData.userData?.user?.id,
+        },
+        contextUserData.userData?.accessToken,
+      )
+      .then(async response => {
+        const data: Product = await response.json();
+        handleNotifications('Product added !');
+      })
+      .catch(error => console.error('post request failed: ', error));
+  };
+
+  const onNotifications = (message: string) => {
+    setNotifications({message: message});
   };
   return (
     <View style={{flex: 1}}>
-      <ProductView onCreateItem={onCreateItem} />
+      <ProductView
+        notifications={notifications}
+        onNotifications={onNotifications}
+        onCreateItem={onCreateItem}
+      />
     </View>
   );
 };
-
-// <Pressable onPress={() => console.log('context: ', contextUserData.userData)}><Text>read context</Text></Pressable>

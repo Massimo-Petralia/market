@@ -2,8 +2,8 @@ import {createContext} from 'react';
 import {User, UserAuth} from '../models';
 import { useState } from 'react';
 
-type UserContext = {
-  userData: UserAuth | undefined;
+type UserContext =  {
+  userData: UserAuth;
   onCreate: (user: User) => void;
   onSignin: (authData: Partial<User>) => void,
   isSignedUp: boolean;
@@ -11,7 +11,7 @@ type UserContext = {
 };
 
 export const userContext = createContext<UserContext>({
-  userData: undefined,
+  userData: {accessToken: '', user: undefined},
   onCreate: (user: User) => {},
   onSignin: (authData: Partial<User>) => {},
   isSignedUp: false,

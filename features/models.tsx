@@ -5,7 +5,7 @@ export type User = {
   password: string;
   address?: Address;
   avatar?: string;
-}|undefined
+}
 
 interface Address {
   country: string;
@@ -17,7 +17,7 @@ interface Address {
 
 export interface UserAuth {
   accessToken: string;
-  user: User 
+  user?: User 
 }
 
 export interface Product  {

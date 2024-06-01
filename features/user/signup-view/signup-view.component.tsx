@@ -11,7 +11,7 @@ export const SignupView = ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList, 'Signup'>) => {
   const contextData = useContext(userContext);
-  const formData: User | undefined = {
+  const formData: User = {
     name: '',
     email: '',
     password: '',
@@ -46,7 +46,7 @@ export const SignupView = ({
           </Pressable>
         </View>
         <View style={{alignItems: 'center'}}>
-          {contextData.userData?.user && contextData.isSignedUp ? (
+          {contextData.userData.user && contextData.isSignedUp ? (
             <Text style={style.notifications}>
               Wellcome{' '}
               {contextData.userData.user.name.charAt(0).toLocaleUpperCase() +

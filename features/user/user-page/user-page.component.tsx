@@ -17,7 +17,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const userServices = new UsersServices();
 
 export const UserPage = () => {
-  const [user, setUser] = useState<UserAuth|undefined>(undefined);
+  const [user, setUser] = useState<UserAuth>({accessToken: '', user: undefined});
   const [isSignedUp, setIsSignedUp] = useState<boolean>(false);
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
   const contextUserData = useContext(userContext)

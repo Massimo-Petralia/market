@@ -43,7 +43,7 @@ export const SigninView = ({
           </Pressable>
         </View>
         <View style={{alignItems: 'center'}}>
-          {contextData.userData?.user && contextData.isSignedIn ? (
+          {contextData.userData.user && contextData.isSignedIn ? (
             <Text style={style.notifications}>
               Hello{' '}
               {contextData.userData.user.name.charAt(0).toLocaleUpperCase() +
