@@ -25,11 +25,11 @@ type pagerViewRef = React.ElementRef<typeof PagerView>;
 export const ProductView = ({
   onCreateItem,
   notifications,
-  onNotifications
+  onResetNotifications
 }: {
   onCreateItem: (product: Product) => void;
   notifications: {message: string};
-  onNotifications: (message: string)=> void
+  onResetNotifications: (message: string)=> void
 }) => {
   const contextUserData = useContext(userContext);
 
@@ -74,8 +74,8 @@ export const ProductView = ({
       return;
     } else onCreateItem(product);
   };
-  const handleNotifications = (message: string) => {
-    onNotifications(message)
+  const resetNotifications = (value: string) => {
+    onResetNotifications(value)
   }
 
   const handleFileSelection = useCallback(async () => {
@@ -199,7 +199,7 @@ export const ProductView = ({
      
       </View>
       <Overlay isVisible={visibleOverlay} onBackdropPress={toggleOverlay}>
-        <Text>To add products you must be logged in</Text>
+        <Text>To add products you must be signed in</Text>
       </Overlay>
       <Overlay
       isVisible={notifications.message !== ''}
@@ -209,7 +209,7 @@ export const ProductView = ({
         <Pressable
          android_ripple={{color: 'lightgreen'}}
          style={[style.pressable, {marginTop: 10}]}
-         onPress={()=> handleNotifications('')}
+         onPress={()=> resetNotifications('')}
         >
           <Text>OK</Text>
         </Pressable>

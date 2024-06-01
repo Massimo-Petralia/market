@@ -31,14 +31,14 @@ export const ProductPage = () => {
       .catch(error => console.error('post request failed: ', error));
   };
 
-  const onNotifications = (message: string) => {
-    setNotifications({message: message});
+  const onResetNotifications = (value: string) => {
+    setNotifications({message: value});
   };
   return (
     <View style={{flex: 1}}>
       <ProductView
         notifications={notifications}
-        onNotifications={onNotifications}
+        onResetNotifications={onResetNotifications}
         onCreateItem={onCreateItem}
       />
     </View>
