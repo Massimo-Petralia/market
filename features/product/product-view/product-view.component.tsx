@@ -86,13 +86,21 @@ export const ProductView = ({
       setVisibleOverlay(true);
       setMessage('For add product you must be signed in');
       return;
-    } else if (formProduct.images.length === 0) {
+    }
+    if (formProduct.images.length === 0) {
       setVisibleOverlay(!visibleOverlay);
-      setMessage('you must select at least one image');
-    } else if (formProduct.images.length > 5) {
+      setMessage('minimum number of images allowed : 1');
+      return;
+    }
+    if (formProduct.images.length > 5) {
       setVisibleOverlay(!visibleOverlay);
-      setMessage('number of images allowed 5');
-    } else onCreateItem(product);
+      setFormProduct(previousState => ({...previousState, images: []}));
+      setMessage('maximum number of images allowed : 5');
+      return;
+    }
+    if (product.name && product.images.length !== 0) {
+      onCreateItem(product);
+    }
   };
 
   useEffect(() => {
