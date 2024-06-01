@@ -1,11 +1,11 @@
 export type User = {
-  id?: number | string;
+  id?: number;
   name: string;
   email: string;
   password: string;
   address?: Address;
   avatar?: string;
-}|undefined
+}
 
 interface Address {
   country: string;
@@ -17,5 +17,15 @@ interface Address {
 
 export interface UserAuth {
   accessToken: string;
-  user: User 
+  user?: User 
+}
+
+export interface Product  {
+  id?: number;
+  userId?: number;
+  accessToken?: string,
+  name: string;
+  description: string;
+  price: string;
+  images: string[]
 }

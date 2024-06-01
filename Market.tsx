@@ -1,60 +1,29 @@
-import {View, Text, ScrollView} from 'react-native';
-import {useState} from 'react';
-import {User, UserAuth} from './features/models';
-import {Signin} from './features/signin/signin.component';
-import {Signup} from './features/signup/signup.component';
-import {UsersServices} from './features/services/user.services';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {userContext} from './features/contexts/user.context';
+import {Text, View} from 'react-native';
+import {ProductPage} from './features/product/product-page/product-page.component';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
-export type RootStackParamList = {
-  Signin: undefined;
-  Signup: undefined;
-};
-const Stack = createNativeStackNavigator<RootStackParamList>();
+import {UserPage} from './features/user/user-page/user-page.component';
 
-const userServices = new UsersServices();
+const Tab = createBottomTabNavigator();
 
 export const Market = () => {
-  const [user, setUser] = useState<User | undefined>(undefined);
-  const [isSignedUp, setIsSignedUp] = useState<boolean>(false);
-  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
-
-  const onCreate = (user: User) => {
-    userServices
-      .createUser(user)
-      .then(async response => {
-        const data: UserAuth = await response.json();
-        setUser(data.user);
-        setIsSignedUp(true);
-      })
-      .catch(error => console.error('create request failed: ', error));
-  };
-  const onSignin = (authData: Partial<User>) => {
-    userServices
-      .signinUser(authData)
-      .then(async response => {
-        const data: UserAuth = await response.json();
-        setUser(data.user);
-        setIsSignedIn(true);
-      })
-      .catch(error => console.error('signin request failed: ', error));
-  };
   return (
-    <View style={{height: '100%'}}>
-      <userContext.Provider
-        value={{
-          user: user,
-          onCreate: user => onCreate(user),
-          onSignin: authData => onSignin(authData),
-          isSignedIn: isSignedIn,
-          isSignedUp: isSignedUp,
-        }}>
-        <Stack.Navigator initialRouteName="Signin">
-          <Stack.Screen name="Signin" component={Signin} />
-          <Stack.Screen name="Signup" component={Signup} />
-        </Stack.Navigator>
-      </userContext.Provider>
-    </View>
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName: string='';
+          if (route.name === 'User') {
+            iconName = focused ? 'person' : 'person-outline'
+              ;
+          }else if (route.name === 'add product') {
+            iconName = focused ? 'add-circle': 'add';
+          }
+          return <MaterialIcon name={iconName} size={size} color={color} />
+        },
+      })}>
+      <Tab.Screen name="User" component={UserPage} />
+      <Tab.Screen name="add product" component={ProductPage} />
+    </Tab.Navigator>
   );
 };
