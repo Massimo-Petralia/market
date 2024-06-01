@@ -25,11 +25,11 @@ type pagerViewRef = React.ElementRef<typeof PagerView>;
 export const ProductView = ({
   onCreateItem,
   notifications,
-  onResetNotifications
+  onResetNotifications,
 }: {
   onCreateItem: (product: Product) => void;
   notifications: {message: string};
-  onResetNotifications: (message: string)=> void
+  onResetNotifications: (message: string) => void;
 }) => {
   const contextUserData = useContext(userContext);
 
@@ -39,8 +39,6 @@ export const ProductView = ({
     price: '',
     images: [],
   });
-
-  const [productNotifications, setProductNotifications] = useState<{message: string}>({message: ''})
 
   const updateFormProduct = (key: keyof Product, value: string | string[]) => {
     setFormProduct(previousFormProduct => {
@@ -63,11 +61,6 @@ export const ProductView = ({
     setVisibleOverlay(!visibleOverlay);
   };
 
-  const toggleOvarlaySuccess = ()=> {
-    return notifications.message ! == '' ? false : true
-  }
-  
-
   const onSubmit = (product: Product) => {
     if (!contextUserData.userData.accessToken) {
       setVisibleOverlay(!visibleOverlay);
@@ -75,8 +68,8 @@ export const ProductView = ({
     } else onCreateItem(product);
   };
   const resetNotifications = (value: string) => {
-    onResetNotifications(value)
-  }
+    onResetNotifications(value);
+  };
 
   const handleFileSelection = useCallback(async () => {
     try {
@@ -107,8 +100,7 @@ export const ProductView = ({
 
   useEffect(() => {
     pagerView.current?.setPage(count);
-    setProductNotifications(notifications)
-  }, [count, productNotifications]);
+  }, [count]);
 
   return (
     <ScrollView style={{flex: 1}}>
@@ -196,21 +188,16 @@ export const ProductView = ({
           }}>
           <Text style={style.lightText}>SUBMIT</Text>
         </Pressable>
-     
       </View>
       <Overlay isVisible={visibleOverlay} onBackdropPress={toggleOverlay}>
         <Text>To add products you must be signed in</Text>
       </Overlay>
-      <Overlay
-      isVisible={notifications.message !== ''}
-     
-      >
+      <Overlay isVisible={notifications.message !== ''}>
         <Text style={style.notifications}>{notifications.message}</Text>
         <Pressable
-         android_ripple={{color: 'lightgreen'}}
-         style={[style.pressable, {marginTop: 10}]}
-         onPress={()=> resetNotifications('')}
-        >
+          android_ripple={{color: 'lightgreen'}}
+          style={[style.pressable, {marginTop: 10}]}
+          onPress={() => resetNotifications('')}>
           <Text>OK</Text>
         </Pressable>
       </Overlay>
