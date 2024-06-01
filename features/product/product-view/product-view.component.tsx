@@ -63,9 +63,16 @@ export const ProductView = ({
 
   const onSubmit = (product: Product) => {
     if (!contextUserData.userData.accessToken) {
-      setVisibleOverlay(!visibleOverlay);
+      setVisibleOverlay(true);
+      setMessage('For add product you must be signed in')
       return;
-    } else onCreateItem(product);
+    } else if (formProduct.images.length === 0){
+      setVisibleOverlay(!visibleOverlay);
+      setMessage('you must select at least one image')
+    } else if(formProduct.images.length > 5) {
+      setVisibleOverlay(!visibleOverlay);
+      setMessage('number of images allowed 5')
+    }else onCreateItem(product);
   };
   const resetNotifications = (value: string) => {
     onResetNotifications(value);
@@ -77,18 +84,13 @@ export const ProductView = ({
         type: [types.images],
         allowMultiSelection: true,
       });
-      if (response.length > 5) {
-        setMessage('Only 5 images are allowed');
-        return;
-      } else {
-        const files: string[] = [];
-        for (let file of response) {
-          const base64String = await RNFS.readFile(file.uri, 'base64');
-          files.push(`data:image/${file.type};base64,${base64String}`);
-        }
-        handleImagesChanges(files);
-        setMessage('');
+      const files: string[] = [];
+      for (let file of response) {
+        const base64String = await RNFS.readFile(file.uri, 'base64');
+        files.push(`data:image/${file.type};base64,${base64String}`);
       }
+      handleImagesChanges(files);
+      //setMessage('');
     } catch (error) {
       console.error('error: ', error);
     }
@@ -133,7 +135,7 @@ export const ProductView = ({
           </View>
         ))}
       </PagerView>
-      {message ? <Text>{message}</Text> : null}
+      {/* {message ? <Text>{message}</Text> : null} */}
       <View style={{flexDirection: 'row', justifyContent: 'center'}}>
         {formProduct.images.length !== 0 ? (
           <View
@@ -190,7 +192,7 @@ export const ProductView = ({
         </Pressable>
       </View>
       <Overlay isVisible={visibleOverlay} onBackdropPress={toggleOverlay}>
-        <Text>To add products you must be signed in</Text>
+        <Text>{message}</Text>
       </Overlay>
       <Overlay isVisible={notifications.message !== ''}>
         <Text style={style.notifications}>{notifications.message}</Text>
