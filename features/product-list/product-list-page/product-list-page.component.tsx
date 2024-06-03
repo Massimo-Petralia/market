@@ -19,7 +19,7 @@ export const ProductListPage = () => {
 
   return (
     <View>
-      <ProductListView />
+      <ProductListView products={products} />
     </View>
   );
 };
