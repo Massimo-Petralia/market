@@ -20,6 +20,7 @@ import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../product-list/product-list-page/product-list-page.component';
 
 type pagerViewRef = React.ElementRef<typeof PagerView>;
+
 type ProductRouteProp = RouteProp<RootStackParamList, 'Product'>
 
 export const ProductView = ({

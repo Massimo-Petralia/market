@@ -9,15 +9,9 @@ import {productContext} from '../../contexts/product.context';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const productServices = new ProductServices();
 
-// declare global {
-//   namespace ReactNavigation {
-//     interface RootParamList extends RootStackParamList {}
-//   }
-// }
 export type RootStackParamList = {
   Products: undefined;
-  Product:{id: number|undefined}
-
+  Product: {id: number | undefined};
 };
 
 export const ProductListPage = () => {
@@ -29,8 +23,13 @@ export const ProductListPage = () => {
       .then(async response => await response.json())
       .then((data: Product[]) => {
         setProducts(data);
-        context.products = data
-        console.log('data length: ', data.length, 'context length: ', context.products.length)
+        context.products = data;
+        console.log(
+          'data length: ',
+          data.length,
+          'context length: ',
+          context.products.length,
+        );
       })
       .catch(error => console.error('get request failed: ', error));
   }, []);
