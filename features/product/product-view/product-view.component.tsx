@@ -15,6 +15,7 @@ import {Product} from '../../models';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import RNFS from 'react-native-fs';
 import {userContext} from '../../contexts/user.context';
+import { useRoute } from '@react-navigation/native';
 
 type pagerViewRef = React.ElementRef<typeof PagerView>;
 
@@ -27,6 +28,7 @@ export const ProductView = ({
   notifications: {message: string};
   onResetNotifications: (message: string) => void;
 }) => {
+  
   const contextUserData = useContext(userContext);
 
   const [count, setCount] = useState(0);

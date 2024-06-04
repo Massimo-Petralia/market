@@ -9,6 +9,8 @@ import {productContext} from '../../contexts/product.context';
 
 import {RootStackParamList} from '../product-list-page/product-list-page.component';
 
+
+
 export const ProductListView = ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList, 'Products'>) => {
@@ -21,7 +23,7 @@ export const ProductListView = ({
             return (
               <Pressable
                 key={index}
-                onPress={() => navigation.navigate('Product')}>
+                onPress={() => navigation.navigate('Product', {id: product.id})}>
                 <Card>
                   <Card.Title>{product.name.toUpperCase()}</Card.Title>
                   <Card.Divider />

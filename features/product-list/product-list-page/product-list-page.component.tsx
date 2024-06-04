@@ -16,7 +16,8 @@ const productServices = new ProductServices();
 // }
 export type RootStackParamList = {
   Products: undefined;
-  Product: undefined;
+  Product:{id: number|undefined}
+
 };
 
 export const ProductListPage = () => {
