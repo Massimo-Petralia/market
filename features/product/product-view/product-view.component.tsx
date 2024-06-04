@@ -16,8 +16,11 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import RNFS from 'react-native-fs';
 import {userContext} from '../../contexts/user.context';
 import { useRoute } from '@react-navigation/native';
+import { RouteProp } from '@react-navigation/native';
+import { RootStackParamList } from '../../product-list/product-list-page/product-list-page.component';
 
 type pagerViewRef = React.ElementRef<typeof PagerView>;
+type ProductRouteProp = RouteProp<RootStackParamList, 'Product'>
 
 export const ProductView = ({
   onCreateItem,
@@ -28,7 +31,9 @@ export const ProductView = ({
   notifications: {message: string};
   onResetNotifications: (message: string) => void;
 }) => {
-  
+  const route = useRoute<ProductRouteProp>()
+  const params = route.params
+  console.log('id: ',params.id)
   const contextUserData = useContext(userContext);
 
   const [count, setCount] = useState(0);
