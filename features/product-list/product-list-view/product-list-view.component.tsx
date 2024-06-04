@@ -1,30 +1,45 @@
-import { View, Text } from "react-native";
-import { Product } from "../../models";
-import PagerView from "react-native-pager-view";
-import { Card } from "@rneui/themed";
+import {View, Text, Pressable} from 'react-native';
+import {Product} from '../../models';
+import PagerView from 'react-native-pager-view';
+import {Card} from '@rneui/themed';
+import {ProductPage} from '../../product/product-page/product-page.component';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useContext} from 'react';
+import {productContext} from '../../contexts/product.context';
 
-export const ProductListView = ({products}: {products: Product[]}) => {
-    return (
-        <View>
-            
-            <PagerView
-            initialPage={0}
-            useNext
-            >
-                {products.length !== 0 ?  products.map((product, index)=>{
-                    return <Card key={index}>
-                        <Card.Title>{product.name.toUpperCase()}</Card.Title>
-                    <Card.Divider/>
-                    <Card.Image
+import {RootStackParamList} from '../product-list-page/product-list-page.component';
+
+export const ProductListView = ({
+  navigation,
+}: NativeStackScreenProps<RootStackParamList, 'Products'>) => {
+  const context = useContext(productContext);
+  return (
+    <View>
+      <PagerView useNext initialPage={0}>
+        {context.products.length !== 0 ? (
+          context.products.map((product, index) => {
+            return (
+              <Pressable
+                key={index}
+                onPress={() => navigation.navigate('Product')}>
+                <Card>
+                  <Card.Title>{product.name.toUpperCase()}</Card.Title>
+                  <Card.Divider />
+                  <Card.Image
                     source={{
-                        uri: product.images[0]
+                      uri: product.images[0],
                     }}
-                    />
-                    </Card>
-                    
-                    
-                    }):<View key="0"><Text>no products present</Text></View>}
-            </PagerView>
-        </View>
-    )
-}
+                  />
+                </Card>
+              </Pressable>
+            );
+          })
+        ) : (
+          <View key="0">
+            <Text>no products present</Text>
+          </View>
+        )}
+      </PagerView>
+    </View>
+  );
+};

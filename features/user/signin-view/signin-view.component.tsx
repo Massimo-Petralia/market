@@ -6,9 +6,7 @@ import {userContext} from '../../contexts/user.context';
 import {useContext} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {RootStackParamList} from '../user-page/user-page.component';
-export const SigninView = ({
-  navigation,
-}: NativeStackScreenProps<RootStackParamList, 'Signin'>) => {
+export const SigninView = ({navigation}: NativeStackScreenProps<RootStackParamList, 'Signin'>) => {
   const contextData = useContext(userContext);
   const formData: Partial<User> | undefined = {
     email: '',

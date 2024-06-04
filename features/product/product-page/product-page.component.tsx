@@ -4,6 +4,7 @@ import {ProductView} from '../product-view/product-view.component';
 import {Product} from '../../models';
 import {userContext} from '../../contexts/user.context';
 import {ProductServices} from '../../services/product.services';
+
 const productService = new ProductServices();
 
 export const ProductPage = () => {
