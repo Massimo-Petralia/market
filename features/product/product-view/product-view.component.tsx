@@ -15,25 +15,22 @@ import {Product} from '../../models';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import RNFS from 'react-native-fs';
 import {userContext} from '../../context/market.context';
-//import { useRoute } from '@react-navigation/native';
-//import { ProductRouteProp } from '../../navigation/types';
 
 type pagerViewRef = React.ElementRef<typeof PagerView>;
 
 export const ProductView = ({
-  onCreateItem,
+  onCreateProduct,
+  onUpdateProduct,
   notifications,
   onResetNotifications,
   product,
 }: {
-  onCreateItem: (product: Product) => void;
+  onCreateProduct: (product: Product) => void;
+  onUpdateProduct: (product: Product) => void;
   notifications: {message: string};
   onResetNotifications: (message: string) => void;
   product: Product | undefined;
 }) => {
-  //const route = useRoute<ProductRouteProp>()
-  // const params = route.params
-  // console.log('id: ',params.id)
   const contextUserData = useContext(userContext);
 
   const [count, setCount] = useState(0);
@@ -88,25 +85,32 @@ export const ProductView = ({
 
   const pagerView = useRef<pagerViewRef>(null);
 
-  const onSubmit = (product: Product) => {
-    if (!contextUserData.userData.accessToken) {
-      setVisibleOverlay(true);
-      setMessage('For add product you must be signed in');
-      return;
-    }
-    if (formProduct.images.length === 0) {
+  const checkImages = (images: string[]) => {
+    if (images.length === 0) {
       setVisibleOverlay(!visibleOverlay);
-      setMessage('minimum number of images allowed : 1');
-      return;
+      setMessage('minimum required images number : 1');
+      return true;
     }
-    if (formProduct.images.length > 5) {
+    if (images.length > 5) {
       setVisibleOverlay(!visibleOverlay);
       setFormProduct(previousState => ({...previousState, images: []}));
       setMessage('maximum number of images allowed : 5');
+      return true;
+    } else return false;
+  };
+
+  const onSubmit = (product: Product) => {
+    if (!contextUserData.userData.accessToken) {
+      setVisibleOverlay(true);
+      setMessage('For add or update product you must be signed in');
       return;
     }
-    if (product.name && product.images.length !== 0) {
-      onCreateItem(product);
+
+    if (!product.id && !checkImages(product.images)) {
+      onCreateProduct(product);
+    }
+    if(product.id && !checkImages(product.images)) {
+      onUpdateProduct(product)
     }
   };
 
