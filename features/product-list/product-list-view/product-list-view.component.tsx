@@ -1,15 +1,11 @@
 import {View, Text, Pressable} from 'react-native';
-import {Product} from '../../models';
 import PagerView from 'react-native-pager-view';
 import {Card} from '@rneui/themed';
-import {ProductPage} from '../../product/product-page/product-page.component';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useContext} from 'react';
 import {productContext} from '../../context/market.context';
 
-import {RootStackParamList} from '../product-list-page/product-list-page.component';
-
-
+import {RootStackParamList} from '../../navigation/types';
 
 export const ProductListView = ({
   navigation,
@@ -23,7 +19,9 @@ export const ProductListView = ({
             return (
               <Pressable
                 key={index}
-                onPress={() => navigation.navigate('Product', {id: product.id})}>
+                onPress={() =>
+                  navigation.navigate('Product', {id: product.id})
+                }>
                 <Card>
                   <Card.Title>{product.name.toUpperCase()}</Card.Title>
                   <Card.Divider />

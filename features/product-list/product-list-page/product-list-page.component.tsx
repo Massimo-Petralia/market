@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import {ProductListView} from '../product-list-view/product-list-view.component';
 import {useContext, useEffect, useState} from 'react';
 import {Product} from '../../models';
@@ -6,13 +6,9 @@ import {ProductServices} from '../../services/product.services';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ProductPage} from '../../product/product-page/product-page.component';
 import {productContext} from '../../context/market.context';
+import {RootStackParamList} from '../../navigation/types';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const productServices = new ProductServices();
-
-export type RootStackParamList = {
-  Products: undefined;
-  Product: {id: number | undefined};
-};
 
 export const ProductListPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -36,7 +32,6 @@ export const ProductListPage = () => {
 
   return (
     <View style={{flex: 1}}>
-      {/* <ProductListView products={products} /> */}
       <productContext.Provider
         value={{
           products: products,

@@ -16,12 +16,9 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import RNFS from 'react-native-fs';
 import {userContext} from '../../context/market.context';
 import { useRoute } from '@react-navigation/native';
-import { RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '../../product-list/product-list-page/product-list-page.component';
+import { ProductRouteProp } from '../../navigation/types';
 
 type pagerViewRef = React.ElementRef<typeof PagerView>;
-
-type ProductRouteProp = RouteProp<RootStackParamList, 'Product'>
 
 export const ProductView = ({
   onCreateItem,

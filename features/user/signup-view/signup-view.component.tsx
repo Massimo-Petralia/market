@@ -5,7 +5,7 @@ import {User} from '../../models';
 import {style} from '../../shared-style/style';
 import {userContext} from '../../context/market.context';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import type {RootStackParamList} from '../user-page/user-page.component';
+import type {RootStackParamList} from '../../navigation/types';
 
 export const SignupView = ({
   navigation,
