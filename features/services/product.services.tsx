@@ -32,4 +32,17 @@ export class ProductServices {
       },
     });
   };
+
+  updateProduct = (product: Product, accessToken: string) => {
+    return fetch(`${itemsURL}/${product.id}`, {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(product)
+    })
+  }
+
 }

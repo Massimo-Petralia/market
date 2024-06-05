@@ -10,30 +10,27 @@ import React, {
 import {pick, types} from 'react-native-document-picker';
 import PagerView from 'react-native-pager-view';
 import {productViewStyle} from './product-view.style';
-import {Input, Overlay} from '@rneui/themed';
+import {Input, Overlay, Divider} from '@rneui/themed';
 import {Product} from '../../models';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import RNFS from 'react-native-fs';
 import {userContext} from '../../context/market.context';
-//import { useRoute } from '@react-navigation/native';
-//import { ProductRouteProp } from '../../navigation/types';
 
 type pagerViewRef = React.ElementRef<typeof PagerView>;
 
 export const ProductView = ({
-  onCreateItem,
+  onCreateProduct,
+  onUpdateProduct,
   notifications,
   onResetNotifications,
   product,
 }: {
-  onCreateItem: (product: Product) => void;
+  onCreateProduct: (product: Product) => void;
+  onUpdateProduct: (product: Product) => void;
   notifications: {message: string};
   onResetNotifications: (message: string) => void;
   product: Product | undefined;
 }) => {
-  //const route = useRoute<ProductRouteProp>()
-  // const params = route.params
-  // console.log('id: ',params.id)
   const contextUserData = useContext(userContext);
 
   const [count, setCount] = useState(0);
@@ -88,25 +85,32 @@ export const ProductView = ({
 
   const pagerView = useRef<pagerViewRef>(null);
 
-  const onSubmit = (product: Product) => {
-    if (!contextUserData.userData.accessToken) {
-      setVisibleOverlay(true);
-      setMessage('For add product you must be signed in');
-      return;
-    }
-    if (formProduct.images.length === 0) {
+  const checkImages = (images: string[]) => {
+    if (images.length === 0) {
       setVisibleOverlay(!visibleOverlay);
-      setMessage('minimum number of images allowed : 1');
-      return;
+      setMessage('minimum required images number : 1');
+      return true;
     }
-    if (formProduct.images.length > 5) {
+    if (images.length > 5) {
       setVisibleOverlay(!visibleOverlay);
       setFormProduct(previousState => ({...previousState, images: []}));
       setMessage('maximum number of images allowed : 5');
+      return true;
+    } else return false;
+  };
+
+  const onSubmit = (product: Product) => {
+    if (!contextUserData.userData.accessToken) {
+      setVisibleOverlay(true);
+      setMessage('For add or update product you must be signed in');
       return;
     }
-    if (product.name && product.images.length !== 0) {
-      onCreateItem(product);
+
+    if (!product.id && !checkImages(product.images)) {
+      onCreateProduct(product);
+    }
+    if (product.id && !checkImages(product.images)) {
+      onUpdateProduct(product);
     }
   };
 
@@ -147,21 +151,26 @@ export const ProductView = ({
         {formProduct.images.map((file, index) => (
           <View key={index} style={{alignItems: 'center'}}>
             <ImageBackground
-              style={{width: 350, height: 350, backgroundColor: 'dodgerblue'}}
+              style={{
+                width: 350,
+                height: 350,
+                backgroundColor: 'dodgerblue',
+                borderRadius: 6,
+              }}
               source={{uri: formProduct.images[index]}}
               resizeMode="contain"
             />
           </View>
         ))}
       </PagerView>
-      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+      <View style={{flexDirection: 'row', justifyContent: 'center', marginBottom: 20}}>
         {formProduct.images.length !== 0 ? (
           <View
             style={{flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
             <Pressable
               style={{marginRight: 20}}
               android_ripple={{
-                color: 'lightgreen',
+                color: 'lightsalmon',
                 borderless: true,
                 radius: 25,
               }}
@@ -178,7 +187,7 @@ export const ProductView = ({
             <Pressable
               style={{marginLeft: 20}}
               android_ripple={{
-                color: 'lightgreen',
+                color: 'lightsalmon',
                 borderless: true,
                 radius: 25,
               }}
@@ -192,30 +201,53 @@ export const ProductView = ({
           </View>
         ) : null}
       </View>
-
+      <Divider width={3} style={{marginHorizontal: 25}}/>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'baseline',
+        }}>
+        <Text style={{textAlign: 'center'}}>If you are a seller </Text>
+        <MaterialIcons name="arrow-downward" style={productViewStyle.icon} />
+      </View>
       <View style={[style.mainButtonContainer, {flex: 1}]}>
         <Pressable
-          android_ripple={{color: 'lightgreen'}}
+          android_ripple={{color: 'lightsalmon'}}
           style={[style.pressable, {marginTop: 10}]}
           onPress={() => handleFileSelection()}>
-          <Text style={style.lightText}>Select {'\u{1F5BC}'}</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={style.lightText}>Select </Text>
+            <MaterialIcons
+              name="image"
+              color="ghostwhite"
+              style={productViewStyle.icon}
+            />
+          </View>
         </Pressable>
         <Pressable
-          android_ripple={{color: 'lightgreen'}}
+          android_ripple={{color: 'lightsalmon'}}
           style={[style.pressable, {marginTop: 10}]}
           onPress={() => {
             onSubmit(formProduct);
           }}>
-          <Text style={style.lightText}>SUBMIT</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={style.lightText}>SUBMIT </Text>
+            <MaterialIcons
+              name="send"
+              color="ghostwhite"
+              style={productViewStyle.icon}
+            />
+          </View>
         </Pressable>
       </View>
       <Overlay isVisible={visibleOverlay} onBackdropPress={toggleOverlay}>
         <Text>{message}</Text>
       </Overlay>
       <Overlay isVisible={notifications.message !== ''}>
-        <Text style={style.notifications}>{notifications.message}</Text>
+        <Text style={style.greenPalette}>{notifications.message}</Text>
         <Pressable
-          android_ripple={{color: 'lightgreen'}}
+          android_ripple={{color: 'lightsalmon'}}
           style={[style.pressable, {marginTop: 10}]}
           onPress={() => resetNotifications('')}>
           <Text>OK</Text>

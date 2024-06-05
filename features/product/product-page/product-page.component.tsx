@@ -22,7 +22,7 @@ export const ProductPage = () => {
       message: message,
     }));
   };
-  const onCreateItem = (product: Product) => {
+  const onCreateProduct = (product: Product) => {
     productService
       .createProduct(
         {
@@ -33,10 +33,27 @@ export const ProductPage = () => {
       )
       .then(async response => {
         const data: Product = await response.json();
+        setProduct(data)
         handleNotifications('Product added !');
       })
       .catch(error => console.error('post request failed: ', error));
   };
+
+  const onUpdateProduct = (product: Product) => {
+    productService.updateProduct(product, contextUserData.userData.accessToken).then(
+      async response => {
+        const responseData = await response.json()
+        if(typeof response === 'string'){
+          const warning : string = responseData
+          handleNotifications(warning)
+        }else {
+          const data: Product = responseData
+          setProduct(data)
+
+        }
+      }
+    ).catch(error => console.error('put request failed: ', error))
+  } 
 
   const onResetNotifications = (value: string) => {
     setNotifications({message: value});
@@ -56,7 +73,8 @@ useEffect(()=> {
       <ProductView
         notifications={notifications}
         onResetNotifications={onResetNotifications}
-        onCreateItem={onCreateItem}
+        onCreateProduct={onCreateProduct}
+        onUpdateProduct={onUpdateProduct}
         product={product}
       />
     </View>

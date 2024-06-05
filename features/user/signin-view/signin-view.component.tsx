@@ -29,7 +29,7 @@ export const SigninView = ({navigation}: NativeStackScreenProps<RootStackParamLi
         <View style={style.mainButtonContainer}>
           <Pressable
             style={style.pressable}
-            android_ripple={{color: 'lightgreen'}}
+            android_ripple={{color: 'lightsalmon'}}
             onPress={() => onSubmit(formData)}>
             <Text style={style.lightText}>SIGNIN</Text>
           </Pressable>
@@ -42,7 +42,7 @@ export const SigninView = ({navigation}: NativeStackScreenProps<RootStackParamLi
         </View>
         <View style={{alignItems: 'center'}}>
           {contextData.userData.user && contextData.isSignedIn ? (
-            <Text style={style.notifications}>
+            <Text style={style.greenPalette}>
               Hello{' '}
               {contextData.userData.user.name.charAt(0).toLocaleUpperCase() +
                 contextData.userData.user.name.slice(1)}{' '}

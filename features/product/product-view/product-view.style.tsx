@@ -19,4 +19,8 @@ export const productViewStyle = StyleSheet.create({
     paddingStart: 5,
     color: 'ghostwhite',
   },
+  icon: {
+    paddingTop: 3,
+    fontSize: 16,
+  },
 });
