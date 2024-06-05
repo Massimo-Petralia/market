@@ -44,6 +44,9 @@ export const ProductPage = () => {
       async response => {
         const data: Product = await response.json()
         setProduct(data)
+        if(typeof data === 'string'){
+          handleNotifications(data)
+        }
       }
     ).catch(error => console.error('put request failed: ', error))
   } 
