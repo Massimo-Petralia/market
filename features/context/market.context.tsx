@@ -1,13 +1,17 @@
 import {createContext} from 'react';
 import {User, UserAuth} from '../models';
-import { useState } from 'react';
+import {Product} from '../models';
 
-type UserContext =  {
+type UserContext = {
   userData: UserAuth;
   onCreate: (user: User) => void;
-  onSignin: (authData: Partial<User>) => void,
+  onSignin: (authData: Partial<User>) => void;
   isSignedUp: boolean;
   isSignedIn: boolean;
+};
+
+type ProductContext = {
+  products: Product[];
 };
 
 export const userContext = createContext<UserContext>({
@@ -18,3 +22,6 @@ export const userContext = createContext<UserContext>({
   isSignedIn: false,
 });
 
+export const productContext = createContext<ProductContext>({
+  products: [],
+});

@@ -14,7 +14,7 @@ import {Input, Overlay} from '@rneui/themed';
 import {Product} from '../../models';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import RNFS from 'react-native-fs';
-import {userContext} from '../../contexts/user.context';
+import {userContext} from '../../context/market.context';
 import { useRoute } from '@react-navigation/native';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../../product-list/product-list-page/product-list-page.component';
@@ -34,7 +34,7 @@ export const ProductView = ({
 }) => {
   const route = useRoute<ProductRouteProp>()
   const params = route.params
-  console.log('id: ',params.id)
+ // console.log('id: ',params.id)
   const contextUserData = useContext(userContext);
 
   const [count, setCount] = useState(0);

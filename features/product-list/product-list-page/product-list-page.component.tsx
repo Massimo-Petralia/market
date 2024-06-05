@@ -5,7 +5,7 @@ import {Product} from '../../models';
 import {ProductServices} from '../../services/product.services';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ProductPage} from '../../product/product-page/product-page.component';
-import {productContext} from '../../contexts/product.context';
+import {productContext} from '../../context/market.context';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const productServices = new ProductServices();
 

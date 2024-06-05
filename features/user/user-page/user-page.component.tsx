@@ -2,7 +2,7 @@ import {useState, useContext} from 'react';
 import {User, UserAuth} from '../../models';
 import {UsersServices} from '../../services/user.services';
 import {ScrollViewComponent, View} from 'react-native';
-import {userContext} from '../../contexts/user.context';
+import {userContext} from '../../context/market.context';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SigninView} from '../signin-view/signin-view.component';
 import {SignupView} from '../signup-view/signup-view.component';

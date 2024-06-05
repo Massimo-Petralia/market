@@ -2,7 +2,7 @@ import {useContext, useState} from 'react';
 import {Pressable, Text, View} from 'react-native';
 import {ProductView} from '../product-view/product-view.component';
 import {Product} from '../../models';
-import {userContext} from '../../contexts/user.context';
+import {userContext} from '../../context/market.context';
 import {ProductServices} from '../../services/product.services';
 
 const productService = new ProductServices();

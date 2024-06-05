@@ -5,7 +5,7 @@ import {Card} from '@rneui/themed';
 import {ProductPage} from '../../product/product-page/product-page.component';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useContext} from 'react';
-import {productContext} from '../../contexts/product.context';
+import {productContext} from '../../context/market.context';
 
 import {RootStackParamList} from '../product-list-page/product-list-page.component';
 
