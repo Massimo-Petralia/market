@@ -245,9 +245,9 @@ export const ProductView = ({
         <Text>{message}</Text>
       </Overlay>
       <Overlay isVisible={notifications.message !== ''}>
-        <Text style={style.notifications}>{notifications.message}</Text>
+        <Text style={style.greenPalette}>{notifications.message}</Text>
         <Pressable
-          android_ripple={{color: 'lightgreen'}}
+          android_ripple={{color: 'lightsalmon'}}
           style={[style.pressable, {marginTop: 10}]}
           onPress={() => resetNotifications('')}>
           <Text>OK</Text>
