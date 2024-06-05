@@ -14,7 +14,9 @@ import {Input, Overlay} from '@rneui/themed';
 import {Product} from '../../models';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import RNFS from 'react-native-fs';
-import {userContext} from '../../contexts/user.context';
+import {userContext} from '../../context/market.context';
+//import { useRoute } from '@react-navigation/native';
+//import { ProductRouteProp } from '../../navigation/types';
 
 type pagerViewRef = React.ElementRef<typeof PagerView>;
 
@@ -22,11 +24,16 @@ export const ProductView = ({
   onCreateItem,
   notifications,
   onResetNotifications,
+  product,
 }: {
   onCreateItem: (product: Product) => void;
   notifications: {message: string};
   onResetNotifications: (message: string) => void;
+  product: Product | undefined;
 }) => {
+  //const route = useRoute<ProductRouteProp>()
+  // const params = route.params
+  // console.log('id: ',params.id)
   const contextUserData = useContext(userContext);
 
   const [count, setCount] = useState(0);
@@ -105,18 +112,27 @@ export const ProductView = ({
 
   useEffect(() => {
     pagerView.current?.setPage(count);
-  }, [count]);
+    if (product?.id) {
+      setFormProduct(product);
+    }
+  }, [count, product]);
 
   return (
     <ScrollView style={{flex: 1}}>
       <View>
-        <Input label="name" onChangeText={name => handleNameChanges(name)} />
+        <Input
+          label="name"
+          value={formProduct.name}
+          onChangeText={name => handleNameChanges(name)}
+        />
         <Input
           label="Description"
+          value={formProduct.description}
           onChangeText={description => handleDescriptionChanges(description)}
         />
         <Input
           label="Price"
+          value={formProduct.price}
           onChangeText={price => handlePriceChanges(price)}
         />
       </View>

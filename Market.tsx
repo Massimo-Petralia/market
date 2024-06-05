@@ -1,7 +1,9 @@
 import {Text, View} from 'react-native';
 import {ProductPage} from './features/product/product-page/product-page.component';
+import { ProductListPage } from './features/product-list/product-list-page/product-list-page.component';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import {UserPage} from './features/user/user-page/user-page.component';
 
@@ -18,12 +20,15 @@ export const Market = () => {
               ;
           }else if (route.name === 'add product') {
             iconName = focused ? 'add-circle': 'add';
+          }else if (route.name === 'Home') {
+            iconName = 'home'
           }
           return <MaterialIcon name={iconName} size={size} color={color} />
         },
       })}>
+      <Tab.Screen name="Home" component={ProductListPage}/>
       <Tab.Screen name="User" component={UserPage} />
-      <Tab.Screen name="add product" component={ProductPage} />
+      <Tab.Screen name="add product" component={ProductPage} initialParams={{id: null}}/>
     </Tab.Navigator>
   );
 };

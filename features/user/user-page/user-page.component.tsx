@@ -1,26 +1,25 @@
 import {useState, useContext} from 'react';
 import {User, UserAuth} from '../../models';
 import {UsersServices} from '../../services/user.services';
-import {ScrollViewComponent, View} from 'react-native';
-import {userContext} from '../../contexts/user.context';
+import {View} from 'react-native';
+import {userContext} from '../../context/market.context';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SigninView} from '../signin-view/signin-view.component';
 import {SignupView} from '../signup-view/signup-view.component';
-
-export type RootStackParamList = {
-  Signin: undefined;
-  Signup: undefined;
-};
+import {RootStackParamList} from '../../navigation/types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const userServices = new UsersServices();
 
 export const UserPage = () => {
-  const [user, setUser] = useState<UserAuth>({accessToken: '', user: undefined});
+  const [user, setUser] = useState<UserAuth>({
+    accessToken: '',
+    user: undefined,
+  });
   const [isSignedUp, setIsSignedUp] = useState<boolean>(false);
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
-  const contextUserData = useContext(userContext)
+  const contextUserData = useContext(userContext);
 
   const onCreate = (user: User) => {
     userServices
@@ -31,15 +30,15 @@ export const UserPage = () => {
         setIsSignedUp(true);
       })
       .catch(error => console.error('create request failed: ', error));
-    };
-    const onSignin = (authData: Partial<User>) => {
-      userServices
+  };
+  const onSignin = (authData: Partial<User>) => {
+    userServices
       .signinUser(authData)
       .then(async response => {
         const data: UserAuth = await response.json();
         setUser(data);
         setIsSignedIn(true);
-        contextUserData.userData = data
+        contextUserData.userData = data;
       })
       .catch(error => console.error('signin request failed: ', error));
   };

@@ -2,13 +2,11 @@ import {View, Text, Pressable} from 'react-native';
 import {Input} from '@rneui/themed';
 import {User} from '../../models';
 import {style} from '../../shared-style/style';
-import {userContext} from '../../contexts/user.context';
+import {userContext} from '../../context/market.context';
 import {useContext} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import type {RootStackParamList} from '../user-page/user-page.component';
-export const SigninView = ({
-  navigation,
-}: NativeStackScreenProps<RootStackParamList, 'Signin'>) => {
+import type {RootStackParamList} from '../../navigation/types';
+export const SigninView = ({navigation}: NativeStackScreenProps<RootStackParamList, 'Signin'>) => {
   const contextData = useContext(userContext);
   const formData: Partial<User> | undefined = {
     email: '',
