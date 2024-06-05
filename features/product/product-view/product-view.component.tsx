@@ -115,7 +115,7 @@ export const ProductView = ({
     if (product?.id) {
       setFormProduct(product);
     }
-  }, [count]);
+  }, [count, product]);
 
   return (
     <ScrollView style={{flex: 1}}>
