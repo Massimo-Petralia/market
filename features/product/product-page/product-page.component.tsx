@@ -42,10 +42,14 @@ export const ProductPage = () => {
   const onUpdateProduct = (product: Product) => {
     productService.updateProduct(product, contextUserData.userData.accessToken).then(
       async response => {
-        const data: Product = await response.json()
-        setProduct(data)
-        if(typeof data === 'string'){
-          handleNotifications(data)
+        const responseData = await response.json()
+        if(typeof response === 'string'){
+          const warning : string = responseData
+          handleNotifications(warning)
+        }else {
+          const data: Product = responseData
+          setProduct(data)
+
         }
       }
     ).catch(error => console.error('put request failed: ', error))
