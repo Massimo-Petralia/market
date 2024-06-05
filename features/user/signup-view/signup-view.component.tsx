@@ -34,7 +34,7 @@ export const SignupView = ({
         <View style={style.mainButtonContainer}>
           <Pressable
             style={style.pressable}
-            android_ripple={{color: 'lightgreen'}}
+            android_ripple={{color: 'lightsalmon'}}
             onPress={() => onSubmit(formData)}>
             <Text style={style.lightText}>SIGNUP</Text>
           </Pressable>
@@ -47,7 +47,7 @@ export const SignupView = ({
         </View>
         <View style={{alignItems: 'center'}}>
           {contextData.userData.user && contextData.isSignedUp ? (
-            <Text style={style.notifications}>
+            <Text style={style.greenPalette}>
               Wellcome{' '}
               {contextData.userData.user.name.charAt(0).toLocaleUpperCase() +
                 contextData.userData.user.name.slice(1)}{' '}

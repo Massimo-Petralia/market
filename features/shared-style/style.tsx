@@ -14,13 +14,18 @@ export const style = StyleSheet.create({
     padding: 10,
     backgroundColor: 'dodgerblue',
     alignItems: 'center',
-    marginHorizontal: 20
+    marginHorizontal: 20,
+    borderRadius: 6
   },
   bluePalette: {
     color: 'dodgerblue',
   },
-  notifications: {
+  greenPalette: {
     color: 'green',
+    marginTop: 10
+  },
+  notifications: {
+    color: 'salmon',
     margin: 10,
   },
   lightText: {

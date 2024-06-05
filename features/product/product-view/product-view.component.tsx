@@ -10,7 +10,7 @@ import React, {
 import {pick, types} from 'react-native-document-picker';
 import PagerView from 'react-native-pager-view';
 import {productViewStyle} from './product-view.style';
-import {Input, Overlay} from '@rneui/themed';
+import {Input, Overlay, Divider} from '@rneui/themed';
 import {Product} from '../../models';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import RNFS from 'react-native-fs';
@@ -109,8 +109,8 @@ export const ProductView = ({
     if (!product.id && !checkImages(product.images)) {
       onCreateProduct(product);
     }
-    if(product.id && !checkImages(product.images)) {
-      onUpdateProduct(product)
+    if (product.id && !checkImages(product.images)) {
+      onUpdateProduct(product);
     }
   };
 
@@ -151,21 +151,26 @@ export const ProductView = ({
         {formProduct.images.map((file, index) => (
           <View key={index} style={{alignItems: 'center'}}>
             <ImageBackground
-              style={{width: 350, height: 350, backgroundColor: 'dodgerblue'}}
+              style={{
+                width: 350,
+                height: 350,
+                backgroundColor: 'dodgerblue',
+                borderRadius: 6,
+              }}
               source={{uri: formProduct.images[index]}}
               resizeMode="contain"
             />
           </View>
         ))}
       </PagerView>
-      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+      <View style={{flexDirection: 'row', justifyContent: 'center', marginBottom: 20}}>
         {formProduct.images.length !== 0 ? (
           <View
             style={{flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
             <Pressable
               style={{marginRight: 20}}
               android_ripple={{
-                color: 'lightgreen',
+                color: 'lightsalmon',
                 borderless: true,
                 radius: 25,
               }}
@@ -182,7 +187,7 @@ export const ProductView = ({
             <Pressable
               style={{marginLeft: 20}}
               android_ripple={{
-                color: 'lightgreen',
+                color: 'lightsalmon',
                 borderless: true,
                 radius: 25,
               }}
@@ -196,21 +201,44 @@ export const ProductView = ({
           </View>
         ) : null}
       </View>
-
+      <Divider width={3} style={{marginHorizontal: 25}}/>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'baseline',
+        }}>
+        <Text style={{textAlign: 'center'}}>If you are a seller </Text>
+        <MaterialIcons name="arrow-downward" style={productViewStyle.icon} />
+      </View>
       <View style={[style.mainButtonContainer, {flex: 1}]}>
         <Pressable
-          android_ripple={{color: 'lightgreen'}}
+          android_ripple={{color: 'lightsalmon'}}
           style={[style.pressable, {marginTop: 10}]}
           onPress={() => handleFileSelection()}>
-          <Text style={style.lightText}>Select {'\u{1F5BC}'}</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={style.lightText}>Select </Text>
+            <MaterialIcons
+              name="image"
+              color="ghostwhite"
+              style={productViewStyle.icon}
+            />
+          </View>
         </Pressable>
         <Pressable
-          android_ripple={{color: 'lightgreen'}}
+          android_ripple={{color: 'lightsalmon'}}
           style={[style.pressable, {marginTop: 10}]}
           onPress={() => {
             onSubmit(formProduct);
           }}>
-          <Text style={style.lightText}>SUBMIT</Text>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={style.lightText}>SUBMIT </Text>
+            <MaterialIcons
+              name="send"
+              color="ghostwhite"
+              style={productViewStyle.icon}
+            />
+          </View>
         </Pressable>
       </View>
       <Overlay isVisible={visibleOverlay} onBackdropPress={toggleOverlay}>
