@@ -13,6 +13,7 @@ import {productViewStyle} from './product-view.style';
 import {Input, Overlay, Divider} from '@rneui/themed';
 import {Product} from '../../models';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import RNFS from 'react-native-fs';
 import {userContext} from '../../context/market.context';
 
@@ -163,7 +164,12 @@ export const ProductView = ({
           </View>
         ))}
       </PagerView>
-      <View style={{flexDirection: 'row', justifyContent: 'center', marginBottom: 20}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          marginBottom: 20,
+        }}>
         {formProduct.images.length !== 0 ? (
           <View
             style={{flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
@@ -201,7 +207,7 @@ export const ProductView = ({
           </View>
         ) : null}
       </View>
-      <Divider width={3} style={{marginHorizontal: 25}}/>
+      <Divider width={3} style={{marginHorizontal: 25}} />
       <View
         style={{
           flexDirection: 'row',
@@ -240,6 +246,22 @@ export const ProductView = ({
             />
           </View>
         </Pressable>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Pressable
+            android_ripple={{
+              color: 'lightsalmon',
+              borderless: true,
+              radius: 25,
+            }}>
+            <MterialCommunityIcons
+              style={{margin: 20}}
+              size={40}
+              color={'tomato'}
+              name="delete-circle"
+            />
+          </Pressable>
+          <Text style={{color: 'tomato'}}>Delete product</Text>
+        </View>
       </View>
       <Overlay isVisible={visibleOverlay} onBackdropPress={toggleOverlay}>
         <Text>{message}</Text>
