@@ -22,12 +22,14 @@ type pagerViewRef = React.ElementRef<typeof PagerView>;
 export const ProductView = ({
   onCreateProduct,
   onUpdateProduct,
+  onDeleteProduct,
   notifications,
   onResetNotifications,
   product,
 }: {
   onCreateProduct: (product: Product) => void;
   onUpdateProduct: (product: Product) => void;
+  onDeleteProduct: (id: number) => void;
   notifications: {message: string};
   onResetNotifications: (message: string) => void;
   product: Product | undefined;

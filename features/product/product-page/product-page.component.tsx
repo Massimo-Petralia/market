@@ -55,6 +55,10 @@ export const ProductPage = () => {
     ).catch(error => console.error('put request failed: ', error))
   } 
 
+  const onDeleteProduct = (id: number) => {
+
+  }
+
   const onResetNotifications = (value: string) => {
     setNotifications({message: value});
   };
@@ -75,6 +79,7 @@ useEffect(()=> {
         onResetNotifications={onResetNotifications}
         onCreateProduct={onCreateProduct}
         onUpdateProduct={onUpdateProduct}
+        onDeleteProduct={onDeleteProduct}
         product={product}
       />
     </View>
