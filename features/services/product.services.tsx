@@ -45,4 +45,14 @@ export class ProductServices {
     })
   }
 
+  deleteProduct = (id: number, accessToken: string) => {
+      return fetch(`${itemsURL}/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
+  }
+
 }

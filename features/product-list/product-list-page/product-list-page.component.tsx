@@ -20,12 +20,7 @@ export const ProductListPage = () => {
       .then((data: Product[]) => {
         setProducts(data);
         context.products = data;
-        console.log(
-          'data length: ',
-          data.length,
-          'context length: ',
-          context.products.length,
-        );
+     
       })
       .catch(error => console.error('get request failed: ', error));
   }, []);
