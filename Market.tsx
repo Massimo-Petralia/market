@@ -18,7 +18,7 @@ export const Market = () => {
           if (route.name === 'User') {
             iconName = focused ? 'person' : 'person-outline'
               ;
-          }else if (route.name === 'add product') {
+          }else if (route.name === 'Add product') {
             iconName = focused ? 'add-circle': 'add';
           }else if (route.name === 'Home') {
             iconName = 'home'
