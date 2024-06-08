@@ -6,9 +6,9 @@ import {NavigationContainer} from '@react-navigation/native';
 function App(): React.JSX.Element {
   return (
     <View style={{flex: 1}}>
-      <NavigationContainer>
+      
         <Market />
-      </NavigationContainer>
+     
     </View>
   );
 }

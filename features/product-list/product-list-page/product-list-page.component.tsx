@@ -34,10 +34,11 @@ export const ProductListPage = () => {
         value={{
           products: products,
         }}>
-        <Stack.Navigator initialRouteName="Products">
+        {/* <Stack.Navigator initialRouteName="Products">
           <Stack.Screen name="Products" component={ProductListView} />
           <Stack.Screen name="Product" component={ProductPage} />
-        </Stack.Navigator>
+        </Stack.Navigator> */}
+      <ProductListView />
       </productContext.Provider>
     </View>
   );
