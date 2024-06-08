@@ -292,12 +292,18 @@ export const ProductView = ({
           <Text>Yes</Text>
         </Pressable>
         <Pressable
-        
+
         onPress={()=> setVisibleOverlay(false)}
         >
           <Text>No</Text>
         </Pressable>
       </Overlay>
+      <Pressable
+        
+        onPress={()=> 'ff'}
+        >
+          <Text>NAVIGATE TEXT</Text>
+        </Pressable>
     </ScrollView>
   );
 };

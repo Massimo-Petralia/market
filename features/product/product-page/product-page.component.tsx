@@ -5,11 +5,13 @@ import {Product} from '../../models';
 import {userContext} from '../../context/market.context';
 import {ProductServices} from '../../services/product.services';
 import {useRoute} from '@react-navigation/native';
-import {ProductRouteProp} from '../../navigation/types';
+import {ProductRouteProp, ProductsScreenNavigationProp} from '../../navigation/types';
+import { useNavigation } from '@react-navigation/native';
 
 const productService = new ProductServices();
 
 export const ProductPage = () => {
+  const navigation = useNavigation<ProductsScreenNavigationProp>()
   const route = useRoute<ProductRouteProp>();
   const params = route.params
   const [product, setProduct] = useState<Product|undefined>(undefined)
@@ -62,7 +64,7 @@ export const ProductPage = () => {
           const warning : string = responseData
           handleNotifications(warning)
         }else {
-          
+          navigation.navigate('Products')
         }
       }
     ).catch(error => console.error('delete request failed: ', error))

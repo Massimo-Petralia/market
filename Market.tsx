@@ -28,7 +28,7 @@ export const Market = () => {
       })}>
       <Tab.Screen name="Home" component={ProductListPage}/>
       <Tab.Screen name="User" component={UserPage} />
-      <Tab.Screen name="add product" component={ProductPage} initialParams={{id: null}}/>
+      <Tab.Screen name="Add product" component={ProductPage} initialParams={{id: null}}/>
     </Tab.Navigator>
   );
 };

@@ -7,23 +7,26 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ProductPage} from '../../product/product-page/product-page.component';
 import {productContext} from '../../context/market.context';
 import {RootStackParamList} from '../../navigation/types';
+import {useIsFocused} from '@react-navigation/native';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const productServices = new ProductServices();
 
 export const ProductListPage = () => {
+  const isFocused = useIsFocused();
   const [products, setProducts] = useState<Product[]>([]);
   const context = useContext(productContext);
   useEffect(() => {
-    productServices
-      .getProductList()
-      .then(async response => await response.json())
-      .then((data: Product[]) => {
-        setProducts(data);
-        context.products = data;
-     
-      })
-      .catch(error => console.error('get request failed: ', error));
-  }, []);
+    if (isFocused) {
+      productServices
+        .getProductList()
+        .then(async response => await response.json())
+        .then((data: Product[]) => {
+          setProducts(data);
+          context.products = data;
+        })
+        .catch(error => console.error('get request failed: ', error));
+    }
+  }, [isFocused]);
 
   return (
     <View style={{flex: 1}}>
