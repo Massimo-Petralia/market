@@ -281,6 +281,8 @@ export const ProductView = ({
       <Overlay isVisible={visibleOverlay}>
         <Text>You are sure to delete {product?.name}</Text>
         <Pressable
+         android_ripple={{color: 'lightsalmon'}}
+         style={[style.pressable, {marginTop: 10}]}
           onPress={() => {
             if(formProduct.id !== undefined) {
 
@@ -290,6 +292,7 @@ export const ProductView = ({
           <Text>Yes</Text>
         </Pressable>
         <Pressable
+        
         onPress={()=> setVisibleOverlay(false)}
         >
           <Text>No</Text>

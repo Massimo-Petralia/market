@@ -12,7 +12,6 @@ const productService = new ProductServices();
 export const ProductPage = () => {
   const route = useRoute<ProductRouteProp>();
   const params = route.params
-  //const [id, setId] = useState<number|undefined>(undefined);
   const [product, setProduct] = useState<Product|undefined>(undefined)
   const contextUserData = useContext(userContext);
   const [notifications, setNotifications] = useState({message: ''});
