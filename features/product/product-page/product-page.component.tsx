@@ -56,6 +56,17 @@ export const ProductPage = () => {
   } 
 
   const onDeleteProduct = (id: number) => {
+    productService.deleteProduct(id, contextUserData.userData.accessToken).then(
+      async response => {
+        const responseData = await response.json()
+        if(typeof response === 'string') {
+          const warning : string = responseData
+          handleNotifications(warning)
+        }else {
+          
+        }
+      }
+    ).catch(error => console.error('delete request failed: ', error))
 
   }
 

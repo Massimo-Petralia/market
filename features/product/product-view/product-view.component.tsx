@@ -254,7 +254,8 @@ export const ProductView = ({
               color: 'lightsalmon',
               borderless: true,
               radius: 25,
-            }}>
+            }}
+            onPress={() => 'pplaceholder'}>
             <MterialCommunityIcons
               style={{margin: 20}}
               size={40}
@@ -275,6 +276,23 @@ export const ProductView = ({
           style={[style.pressable, {marginTop: 10}]}
           onPress={() => resetNotifications('')}>
           <Text>OK</Text>
+        </Pressable>
+      </Overlay>
+      <Overlay isVisible={visibleOverlay}>
+        <Text>You are sure to delete {product?.name}</Text>
+        <Pressable
+          onPress={() => {
+            if(formProduct.id !== undefined) {
+
+              onDeleteProduct(formProduct.id);
+            }
+          }}>
+          <Text>Yes</Text>
+        </Pressable>
+        <Pressable
+        onPress={()=> setVisibleOverlay(false)}
+        >
+          <Text>No</Text>
         </Pressable>
       </Overlay>
     </ScrollView>
