@@ -1,4 +1,4 @@
-import {Product} from '../models';
+import {Product} from '../models/market-models';
 
 const itemsURL = 'http://192.168.1.102:3000/644/products';
 

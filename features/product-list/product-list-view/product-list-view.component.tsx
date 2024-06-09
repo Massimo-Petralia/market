@@ -5,10 +5,10 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useContext} from 'react';
 import {productContext} from '../../context/market.context';
 
-import {RootStackParamList} from '../../navigation/types';
+import {RootStackParamList} from '../../models/navigation-types';
 import { useNavigation } from '@react-navigation/native';
-import { HomeScreenNavigationProp } from '../../navigation/types';
-import { Product } from '../../models';
+import { HomeScreenNavigationProp } from '../../models/navigation-types';
+import { Product } from '../../models/market-models';
 
 export const ProductListView = (
 //   {

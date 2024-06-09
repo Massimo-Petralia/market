@@ -1,12 +1,12 @@
 import {View} from 'react-native';
 import {ProductListView} from '../product-list-view/product-list-view.component';
 import {useContext, useEffect, useState} from 'react';
-import {Product} from '../../models';
+import {Product} from '../../models/market-models';
 import {ProductServices} from '../../services/product.services';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ProductPage} from '../../product/product-page/product-page.component';
 import {productContext} from '../../context/market.context';
-import {RootStackParamList} from '../../navigation/types';
+import {RootStackParamList} from '../../models/navigation-types';
 import {useIsFocused} from '@react-navigation/native';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const productServices = new ProductServices();

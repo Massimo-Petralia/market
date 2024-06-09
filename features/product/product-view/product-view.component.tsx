@@ -11,7 +11,7 @@ import {pick, types} from 'react-native-document-picker';
 import PagerView from 'react-native-pager-view';
 import {productViewStyle} from './product-view.style';
 import {Input, Overlay, Divider} from '@rneui/themed';
-import {Product} from '../../models';
+import {Product} from '../../models/market-models';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import RNFS from 'react-native-fs';

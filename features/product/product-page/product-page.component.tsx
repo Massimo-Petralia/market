@@ -1,11 +1,11 @@
 import {useContext, useEffect, useState} from 'react';
 import {Pressable, Text, View} from 'react-native';
 import {ProductView} from '../product-view/product-view.component';
-import {Product} from '../../models';
+import {Product} from '../../models/market-models';
 import {userContext} from '../../context/market.context';
 import {ProductServices} from '../../services/product.services';
 import {useRoute} from '@react-navigation/native';
-import {ProductRouteProp, HomeScreenNavigationProp} from '../../navigation/types';
+import {ProductRouteProp, HomeScreenNavigationProp} from '../../models/navigation-types';
 import { useNavigation } from '@react-navigation/native';
 
 const productService = new ProductServices();
