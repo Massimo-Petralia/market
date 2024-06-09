@@ -1,6 +1,6 @@
 import {createContext} from 'react';
-import {User, UserAuth} from '../models';
-import {Product} from '../models';
+import {User, UserAuth} from '../models/market-models';
+import {Product} from '../models/market-models';
 
 type UserContext = {
   userData: UserAuth;

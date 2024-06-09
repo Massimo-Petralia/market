@@ -11,8 +11,9 @@ import {pick, types} from 'react-native-document-picker';
 import PagerView from 'react-native-pager-view';
 import {productViewStyle} from './product-view.style';
 import {Input, Overlay, Divider} from '@rneui/themed';
-import {Product} from '../../models';
+import {Product} from '../../models/market-models';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import RNFS from 'react-native-fs';
 import {userContext} from '../../context/market.context';
 
@@ -21,12 +22,14 @@ type pagerViewRef = React.ElementRef<typeof PagerView>;
 export const ProductView = ({
   onCreateProduct,
   onUpdateProduct,
+  onDeleteProduct,
   notifications,
   onResetNotifications,
   product,
 }: {
   onCreateProduct: (product: Product) => void;
   onUpdateProduct: (product: Product) => void;
+  onDeleteProduct: (id: number) => void;
   notifications: {message: string};
   onResetNotifications: (message: string) => void;
   product: Product | undefined;
@@ -163,7 +166,12 @@ export const ProductView = ({
           </View>
         ))}
       </PagerView>
-      <View style={{flexDirection: 'row', justifyContent: 'center', marginBottom: 20}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          marginBottom: 20,
+        }}>
         {formProduct.images.length !== 0 ? (
           <View
             style={{flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
@@ -201,7 +209,7 @@ export const ProductView = ({
           </View>
         ) : null}
       </View>
-      <Divider width={3} style={{marginHorizontal: 25}}/>
+      <Divider width={3} style={{marginHorizontal: 25}} />
       <View
         style={{
           flexDirection: 'row',
@@ -240,6 +248,23 @@ export const ProductView = ({
             />
           </View>
         </Pressable>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Pressable
+            android_ripple={{
+              color: 'lightsalmon',
+              borderless: true,
+              radius: 25,
+            }}
+            onPress={() => setVisibleOverlay(true)}>
+            <MterialCommunityIcons
+              style={{margin: 20}}
+              size={40}
+              color={'tomato'}
+              name="delete-circle"
+            />
+          </Pressable>
+          <Text style={{color: 'tomato'}}>Delete product</Text>
+        </View>
       </View>
       <Overlay isVisible={visibleOverlay} onBackdropPress={toggleOverlay}>
         <Text>{message}</Text>
@@ -251,6 +276,25 @@ export const ProductView = ({
           style={[style.pressable, {marginTop: 10}]}
           onPress={() => resetNotifications('')}>
           <Text>OK</Text>
+        </Pressable>
+      </Overlay>
+      <Overlay isVisible={visibleOverlay}>
+        <Text>You are sure to delete {product?.name}</Text>
+        <Pressable
+          android_ripple={{color: 'lightsalmon'}}
+          style={[style.pressable, {marginTop: 10}]}
+          onPress={() => {
+            if (formProduct.id !== undefined) {
+              onDeleteProduct(formProduct.id);
+            }
+          }}>
+          <Text>Yes</Text>
+        </Pressable>
+        <Pressable
+          android_ripple={{color: 'lightsalmon'}}
+          style={[style.pressable, {marginTop: 10}]}
+          onPress={() => setVisibleOverlay(false)}>
+          <Text>No</Text>
         </Pressable>
       </Overlay>
     </ScrollView>

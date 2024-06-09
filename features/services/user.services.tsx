@@ -1,4 +1,4 @@
-import {User} from '../models';
+import {User} from '../models/market-models';
 const usersURL = 'http://192.168.1.102:3000/users';
 const signinURL = 'http://192.168.1.102:3000/signin';
 

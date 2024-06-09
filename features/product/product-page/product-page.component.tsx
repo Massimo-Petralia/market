@@ -1,18 +1,19 @@
 import {useContext, useEffect, useState} from 'react';
 import {Pressable, Text, View} from 'react-native';
 import {ProductView} from '../product-view/product-view.component';
-import {Product} from '../../models';
+import {Product} from '../../models/market-models';
 import {userContext} from '../../context/market.context';
 import {ProductServices} from '../../services/product.services';
 import {useRoute} from '@react-navigation/native';
-import {ProductRouteProp} from '../../navigation/types';
+import {ProductRouteProp, HomeScreenNavigationProp} from '../../models/navigation-types';
+import { useNavigation } from '@react-navigation/native';
 
 const productService = new ProductServices();
 
 export const ProductPage = () => {
+  const navigation = useNavigation<HomeScreenNavigationProp>()
   const route = useRoute<ProductRouteProp>();
   const params = route.params
-  //const [id, setId] = useState<number|undefined>(undefined);
   const [product, setProduct] = useState<Product|undefined>(undefined)
   const contextUserData = useContext(userContext);
   const [notifications, setNotifications] = useState({message: ''});
@@ -55,6 +56,21 @@ export const ProductPage = () => {
     ).catch(error => console.error('put request failed: ', error))
   } 
 
+  const onDeleteProduct = (id: number) => {
+    productService.deleteProduct(id, contextUserData.userData.accessToken).then(
+      async response => {
+        const responseData = await response.json()
+        if(typeof response === 'string') {
+          const warning : string = responseData
+          handleNotifications(warning)
+        }else {
+          navigation.navigate('Home')
+        }
+      }
+    ).catch(error => console.error('delete request failed: ', error))
+
+  }
+
   const onResetNotifications = (value: string) => {
     setNotifications({message: value});
   };
@@ -75,6 +91,7 @@ useEffect(()=> {
         onResetNotifications={onResetNotifications}
         onCreateProduct={onCreateProduct}
         onUpdateProduct={onUpdateProduct}
+        onDeleteProduct={onDeleteProduct}
         product={product}
       />
     </View>

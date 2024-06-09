@@ -1,4 +1,4 @@
-import {Product} from '../models';
+import {Product} from '../models/market-models';
 
 const itemsURL = 'http://192.168.1.102:3000/644/products';
 
@@ -43,6 +43,16 @@ export class ProductServices {
       },
       body: JSON.stringify(product)
     })
+  }
+
+  deleteProduct = (id: number, accessToken:string) => {
+      return fetch(`${itemsURL}/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
   }
 
 }
