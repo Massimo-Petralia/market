@@ -3,11 +3,11 @@ import PagerView from 'react-native-pager-view';
 import {Card} from '@rneui/themed';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useContext} from 'react';
-import {productContext} from '../../context/market.context';
+import {ProductContext} from '../../context/market.context';
 
 import {RootStackParamList} from '../../models/navigation-types';
 import { useNavigation } from '@react-navigation/native';
-import { HomeScreenNavigationProp } from '../../models/navigation-types';
+import { ProductScreenNavigationProp } from '../../models/navigation-types';
 import { Product } from '../../models/market-models';
 
 export const ProductListView = (
@@ -16,8 +16,8 @@ export const ProductListView = (
 // }: NativeStackScreenProps<RootStackParamList, 'Products'>
 //{products}: {products: Product[]}
 ) => {
-  const context = useContext(productContext);
-  const navigation = useNavigation<HomeScreenNavigationProp>()
+  const context = useContext(ProductContext);
+  const navigation = useNavigation<ProductScreenNavigationProp>()
   return (
     <View>
       <PagerView useNext initialPage={0}>

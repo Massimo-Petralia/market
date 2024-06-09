@@ -2,7 +2,7 @@ import {useState, useContext} from 'react';
 import {User, UserAuth} from '../../models/market-models';
 import {UsersServices} from '../../services/user.services';
 import {View} from 'react-native';
-import {userContext} from '../../context/market.context';
+import {UserContext} from '../../context/market.context';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SigninView} from '../signin-view/signin-view.component';
 import {SignupView} from '../signup-view/signup-view.component';
@@ -17,9 +17,10 @@ export const UserPage = () => {
     accessToken: '',
     user: undefined,
   });
+
   const [isSignedUp, setIsSignedUp] = useState<boolean>(false);
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
-  const contextUserData = useContext(userContext);
+  const contextUserData = useContext(UserContext);
 
   const onCreate = (user: User) => {
     userServices
@@ -44,7 +45,7 @@ export const UserPage = () => {
   };
   return (
     <View style={{flex: 1}}>
-      <userContext.Provider
+      <UserContext.Provider
         value={{
           userData: user,
           onCreate: user => onCreate(user),
@@ -56,7 +57,7 @@ export const UserPage = () => {
           <Stack.Screen name="Signin" component={SigninView} />
           <Stack.Screen name="Signup" component={SignupView} />
         </Stack.Navigator>
-      </userContext.Provider>
+      </UserContext.Provider>
     </View>
   );
 };

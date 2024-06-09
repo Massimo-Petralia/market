@@ -5,7 +5,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {productContext} from './features/context/market.context';
+import {ProductContext} from './features/context/market.context';
 
 import {UserPage} from './features/user/user-page/user-page.component';
 import {NavigationContainer} from '@react-navigation/native';
@@ -42,7 +42,7 @@ const TabNavigator = () => {
 };
 
 export const Market = () => {
-  const context = useContext(productContext);
+  const context = useContext(ProductContext);
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Root">

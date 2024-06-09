@@ -3,14 +3,14 @@ import {View, Text, Pressable} from 'react-native';
 import {Input} from '@rneui/themed';
 import {User} from '../../models/market-models';
 import {style} from '../../shared-style/style';
-import {userContext} from '../../context/market.context';
+import {UserContext} from '../../context/market.context';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {RootStackParamList} from '../../models/navigation-types';
 
 export const SignupView = ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList, 'Signup'>) => {
-  const contextData = useContext(userContext);
+  const contextData = useContext(UserContext);
   const formData: User = {
     name: '',
     email: '',

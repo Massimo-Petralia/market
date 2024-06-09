@@ -15,7 +15,7 @@ import {Product} from '../../models/market-models';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import RNFS from 'react-native-fs';
-import {userContext} from '../../context/market.context';
+import {ProductContext, UserContext} from '../../context/market.context';
 
 type pagerViewRef = React.ElementRef<typeof PagerView>;
 
@@ -34,7 +34,9 @@ export const ProductView = ({
   onResetNotifications: (message: string) => void;
   product: Product | undefined;
 }) => {
-  const contextUserData = useContext(userContext);
+  const userContext = useContext(UserContext);
+
+  const productContext = useContext(ProductContext);
 
   const [count, setCount] = useState(0);
   const [message, setMessage] = useState<string>('');
@@ -103,7 +105,7 @@ export const ProductView = ({
   };
 
   const onSubmit = (product: Product) => {
-    if (!contextUserData.userData.accessToken) {
+    if (!userContext.userData.accessToken) {
       setVisibleOverlay(true);
       setMessage('For add or update product you must be signed in');
       return;
@@ -187,7 +189,11 @@ export const ProductView = ({
                   return;
                 } else setCount(count - 1);
               }}>
-              <MaterialIcons style={{fontSize: 50}} name="chevron-left" />
+              <MaterialIcons
+                style={{fontSize: 50}}
+                color="grey"
+                name="chevron-left"
+              />
             </Pressable>
             <Text style={productViewStyle.imageStatus}>
               {count + 1} / {formProduct.images.length.toString()}
@@ -204,68 +210,66 @@ export const ProductView = ({
                   return;
                 } else setCount(count + 1);
               }}>
-              <MaterialIcons style={{fontSize: 50}} name="chevron-right" />
+              <MaterialIcons
+                style={{fontSize: 50}}
+                color="grey"
+                name="chevron-right"
+              />
             </Pressable>
           </View>
         ) : null}
       </View>
-      <Divider width={3} style={{marginHorizontal: 25}} />
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'baseline',
-        }}>
-        <Text style={{textAlign: 'center'}}>If you are a seller </Text>
-        <MaterialIcons name="arrow-downward" style={productViewStyle.icon} />
-      </View>
-      <View style={[style.mainButtonContainer, {flex: 1}]}>
-        <Pressable
-          android_ripple={{color: 'lightsalmon'}}
-          style={[style.pressable, {marginTop: 10}]}
-          onPress={() => handleFileSelection()}>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={style.lightText}>Select </Text>
-            <MaterialIcons
-              name="image"
-              color="ghostwhite"
-              style={productViewStyle.icon}
-            />
+      {userContext.userData.user?.id === product?.userId || !product?.id ? (
+        <>
+          <View style={[style.mainButtonContainer, {flex: 1}]}>
+            <Pressable
+              android_ripple={{color: 'lightsalmon'}}
+              style={[style.pressable, {marginTop: 10}]}
+              onPress={() => handleFileSelection()}>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={style.lightText}>Select </Text>
+                <MaterialIcons
+                  name="image"
+                  color="ghostwhite"
+                  style={productViewStyle.icon}
+                />
+              </View>
+            </Pressable>
+            <Pressable
+              android_ripple={{color: 'lightsalmon'}}
+              style={[style.pressable, {marginTop: 10}]}
+              onPress={() => {
+                onSubmit(formProduct);
+              }}>
+              <View style={{flexDirection: 'row'}}>
+                <Text style={style.lightText}>SUBMIT </Text>
+                <MaterialIcons
+                  name="send"
+                  color="ghostwhite"
+                  style={productViewStyle.icon}
+                />
+              </View>
+            </Pressable>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <Pressable
+                android_ripple={{
+                  color: 'lightsalmon',
+                  borderless: true,
+                  radius: 25,
+                }}
+                onPress={() => setVisibleOverlay(true)}>
+                <MterialCommunityIcons
+                  style={{margin: 20}}
+                  size={40}
+                  color={'tomato'}
+                  name="delete-circle"
+                />
+              </Pressable>
+              <Text style={{color: 'tomato'}}>Delete product</Text>
+            </View>
           </View>
-        </Pressable>
-        <Pressable
-          android_ripple={{color: 'lightsalmon'}}
-          style={[style.pressable, {marginTop: 10}]}
-          onPress={() => {
-            onSubmit(formProduct);
-          }}>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={style.lightText}>SUBMIT </Text>
-            <MaterialIcons
-              name="send"
-              color="ghostwhite"
-              style={productViewStyle.icon}
-            />
-          </View>
-        </Pressable>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Pressable
-            android_ripple={{
-              color: 'lightsalmon',
-              borderless: true,
-              radius: 25,
-            }}
-            onPress={() => setVisibleOverlay(true)}>
-            <MterialCommunityIcons
-              style={{margin: 20}}
-              size={40}
-              color={'tomato'}
-              name="delete-circle"
-            />
-          </Pressable>
-          <Text style={{color: 'tomato'}}>Delete product</Text>
-        </View>
-      </View>
+        </>
+      ) : null}
       <Overlay isVisible={visibleOverlay} onBackdropPress={toggleOverlay}>
         <Text>{message}</Text>
       </Overlay>

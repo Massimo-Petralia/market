@@ -12,9 +12,10 @@ type UserContext = {
 
 type ProductContext = {
   products: Product[];
+  product: Product|null
 };
 
-export const userContext = createContext<UserContext>({
+export const UserContext = createContext<UserContext>({
   userData: {accessToken: '', user: undefined},
   onCreate: (user: User) => {},
   onSignin: (authData: Partial<User>) => {},
@@ -22,6 +23,7 @@ export const userContext = createContext<UserContext>({
   isSignedIn: false,
 });
 
-export const productContext = createContext<ProductContext>({
+export const ProductContext = createContext<ProductContext>({
   products: [],
+  product: null
 });

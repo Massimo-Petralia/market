@@ -5,7 +5,7 @@ import {Product} from '../../models/market-models';
 import {ProductServices} from '../../services/product.services';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ProductPage} from '../../product/product-page/product-page.component';
-import {productContext} from '../../context/market.context';
+import {ProductContext} from '../../context/market.context';
 import {RootStackParamList} from '../../models/navigation-types';
 import {useIsFocused} from '@react-navigation/native';
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -14,7 +14,7 @@ const productServices = new ProductServices();
 export const ProductListPage = () => {
   const isFocused = useIsFocused();
   const [products, setProducts] = useState<Product[]>([]);
-  const context = useContext(productContext);
+  const context = useContext(ProductContext);
   useEffect(() => {
     if (isFocused) {
       productServices
@@ -30,7 +30,7 @@ export const ProductListPage = () => {
 
   return (
     <View style={{flex: 1}}>
-      <productContext.Provider
+      <ProductContext.Provider
         value={{
           products: products,
         }}>
@@ -39,7 +39,7 @@ export const ProductListPage = () => {
           <Stack.Screen name="Product" component={ProductPage} />
         </Stack.Navigator> */}
       <ProductListView />
-      </productContext.Provider>
+      </ProductContext.Provider>
     </View>
   );
 };

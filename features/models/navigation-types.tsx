@@ -13,5 +13,9 @@ export type HomeScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
   'Home'
 >;
+export type ProductScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Product'
+>;
 
 export type ProductRouteProp = RouteProp<RootStackParamList, 'Product'>;
